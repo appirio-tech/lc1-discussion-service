@@ -93,6 +93,25 @@ paths:
           description: Error
           schema:
             $ref: ErrorResponse
+    get:
+      description: Get all messages for a description
+      operationId: getAllbyDiscussion
+      parameters:
+        - name: discussionId
+          in: path
+          description:  Id of discussion
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Sucess
+          schema:
+            $ref: MessagesResponse
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
   /discussions/{discussionId}/messages/{messageId}:
     x-swagger-route-controller: messages
     get:
@@ -223,6 +242,16 @@ paths:
             $ref: PostResponse
 # complex objects have schema definitions
 definitions:
+  MessagesResponse:
+    required:
+      - messages
+    properties:
+      messages:
+        type: array
+        items:
+          $ref: MessageResource
+          minItems: 0
+          uniqueItems: true
   DiscussionResource:
     required:
       - discussionId
@@ -238,14 +267,20 @@ definitions:
       remoteObjectId:
         type: integer
         format: int64
-      messages:
-        type: array
-        items:
-          $ref: MessageResource
-          minItems: 0
-          uniqueItems: true
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+      createdBy:
+        type: string
+        description: The handle fo the user
+      updatedBy:
+        type: string
+        description: The handle fo the user
   MessageResource:
-    reqiored:
+    required:
       - messageId
       - discussionId
       - content
@@ -269,6 +304,18 @@ definitions:
           minItems: 0
           uniqueItems: true
           $ref: MessageResource
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+      createdBy:
+        type: string
+        description: The handle fo the user
+      updatedBy:
+        type: string
+        description: The handle fo the user
   PostResponse:
     required:
       - id
@@ -287,19 +334,16 @@ definitions:
             description: The http status code
   DiscussionBody:
     required:
-      - remoteObjectName
+      - remoteObjectType
       - remoteObjectId
     properties:
       remoteObjectName:
-        description: The type of object which a discussion is attached. challenge, submission
+        description: The type of object which a discussion is attached. for example challenge or submission
         type: string
       remoteObjectId:
         description: The id of the remote object
         type: integer
         format: int64
-      owner:
-        description: The owner of the dicussion
-        type: string
   MessageBody:
     required:
       - content

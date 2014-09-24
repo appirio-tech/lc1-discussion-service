@@ -33,3 +33,7 @@ node_modules
 # Apigee 127 deployment
 config/.a127_env
 config/.a127_secrets
+
+# local env
+config/local.yaml
+config/local-*.yaml
