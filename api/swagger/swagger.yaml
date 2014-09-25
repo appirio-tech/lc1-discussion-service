@@ -214,8 +214,9 @@ paths:
           schema:
             $ref: ErrorResponse
   /discussions/{discussionId}/messages/{messageId}/messages:
+    x-swagger-route-controller: messages
     post:
-      description: Create a replay to a message
+      description: Create a reply to a message.  The message ID path param will be used as the parent id for the message.
       operationId: reply
       parameters:
         - name: discussionId
