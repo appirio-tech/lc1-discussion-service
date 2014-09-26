@@ -22,7 +22,7 @@ paths:
   /discussions:
     x-swagger-router-controller: discussions
     post:
-      description: Creaet a new discusion
+      description: Create a new discusion
       # used as the method name of the controller
       operationId: create
       parameters:
@@ -94,7 +94,7 @@ paths:
           schema:
             $ref: ErrorResponse
     get:
-      description: Get all messages for a description
+      description: Get all messages for a discussion
       operationId: getAllbyDiscussion
       parameters:
         - name: discussionId
