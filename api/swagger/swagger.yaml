@@ -53,22 +53,23 @@ paths:
           type: integer
           format: int64
       responses:
-        200:
+        "200":
           description: Return a Discussion Resource
           schema:
-            success:
-              type: boolean
-            status:
-              type: integer
-              format: int32
-            content:
-              $ref: DiscussionResource
+            properties:
+              success:
+                type: boolean
+              status:
+                type: integer
+                format: int32
+              content:
+                $ref: DiscussionResource
         default:
           description: Error
           schema:
             $ref: ErrorResponse
   /discussions/{discussionId}/messages:
-    x-swagger-route-controller: messages
+    x-swagger-router-controller: messages
     post:
       description: Create a Message
       operationId: create
@@ -113,7 +114,7 @@ paths:
           schema:
             $ref: ErrorResponse
   /discussions/{discussionId}/messages/{messageId}:
-    x-swagger-route-controller: messages
+    x-swagger-router-controller: messages
     get:
       description: Get a Message and it's children
       operationId: findById
@@ -131,17 +132,18 @@ paths:
           type: integer
           format: int64
       responses:
-        200:
+        "200":
           description: A successufly response
           schema:
-            success:
-              type: boolean
-              description: True or False if the request was a success
-            status:
-              type: integer
-              description:  The HTTP status code
-            content:
-              $ref: MessageResource
+            properties:
+              success:
+                type: boolean
+                description: True or False if the request was a success
+              status:
+                type: integer
+                description:  The HTTP status code
+              content:
+                $ref: MessageResource
         default:
           description: Error
           schema:
@@ -168,17 +170,18 @@ paths:
           schema:
             $ref: MessageBody
       responses:
-        200:
+        "200":
           description: Success
           schema:
-            success:
-              type: boolean
-              description: True or False if the request was a success
-            status:
-              type: integer
-              description:  The HTTP status code
-            content:
-              $ref: MessageResource
+            properties:
+              success:
+                type: boolean
+                description: True or False if the request was a success
+              status:
+                type: integer
+                description:  The HTTP status code
+              content:
+                $ref: MessageResource
         default:
           description: Error
           schema:
@@ -200,21 +203,22 @@ paths:
           type: integer
           format: int64
       responses:
-        200:
+        "200":
           description: Success
           schema:
-            success:
-              type: boolean
-              description: True or False if the request was a success
-            status:
-              type: integer
-              description:  The HTTP status code
+            properties:
+              success:
+                type: boolean
+                description: True or False if the request was a success
+              status:
+                type: integer
+                description:  The HTTP status code
         default:
           description: Error
           schema:
             $ref: ErrorResponse
   /discussions/{discussionId}/messages/{messageId}/messages:
-    x-swagger-route-controller: messages
+    x-swagger-router-controller: messages
     post:
       description: Create a reply to a message.  The message ID path param will be used as the parent id for the message.
       operationId: reply
@@ -237,7 +241,7 @@ paths:
           schema:
             $ref: MessageBody
       responses:
-        200:
+        "200":
           description: Sucessful reply
           schema:
             $ref: PostResponse
@@ -256,7 +260,7 @@ definitions:
   DiscussionResource:
     required:
       - discussionId
-      - remoteObjectKey
+      - remoteObjectName
       - remoteObjectId
       - messages
     properties:
@@ -268,6 +272,12 @@ definitions:
       remoteObjectId:
         type: integer
         format: int64
+      messages:
+        type: array
+        items:
+          $ref: MessageResource
+          minItems: 0
+          uniqueItems: true
       createdAt:
         type: string
         format: date-time
@@ -335,7 +345,7 @@ definitions:
             description: The http status code
   DiscussionBody:
     required:
-      - remoteObjectType
+      - remoteObjectName
       - remoteObjectId
     properties:
       remoteObjectName:

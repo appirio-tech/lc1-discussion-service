@@ -15,7 +15,7 @@ module.exports = function(config) {
     config.get('app.pg.port') + '/' +
     config.get('app.pg.database'));
 
-  var sequelize = new Sequelize(postgresurl, config.pg);
+  var sequelize = new Sequelize(postgresurl);
   var db = {};
 
   // Add JSON and JSONB data type to Sequelize

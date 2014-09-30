@@ -1,5 +1,9 @@
 'use strict';
 
+var paths = {
+  js: ['*.js', 'api/**/*.js', '!test/coverage/**', '!bower_components/**']
+};
+
 module.exports = function(grunt) {
   var databaseUrl;
 
@@ -7,7 +11,7 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
   }
 
-  var envConfig = require('config');
+  var envConfig = require('config').app;
   databaseUrl = envConfig.pgURL ||
       'postgres://' + envConfig.pg.username + ':' + envConfig.pg.password + '@' + envConfig.pg.host + ':5432/' + envConfig.pg.database;
 
@@ -61,7 +65,7 @@ module.exports = function(grunt) {
         env: {
           DATABASE_URL: databaseUrl   // the databaseUrl is resolved at the beginning based on the NODE_ENV, this value injects the config in the database.json
         },
-        'dir': 'config/schema-migrations', // defines the dir for the migration scripts
+        'migrations-dir': 'config/schema-migrations', // defines the dir for the migration scripts
         verbose: true   // tell me more stuff
       }
     },
@@ -70,7 +74,8 @@ module.exports = function(grunt) {
         NODE_ENV: 'test'
       },
       local: {
-        NODE_ENV: 'local'
+        NODE_ENV: 'local',
+        DEBUG: true
       }
     }
   });
@@ -94,5 +99,8 @@ module.exports = function(grunt) {
   // db migrate
   grunt.registerTask('dbmigrate', 'db up all the appliable scripts', function () {
     grunt.task.run('migrate:up');
+  });
+  grunt.registerTask('dbdown', 'db down all the appliable scripts', function () {
+    grunt.task.run('migrate:down');
   });
 };
