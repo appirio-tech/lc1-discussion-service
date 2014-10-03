@@ -1,2 +1,0 @@
-app:
-  pgURL: postgres://indytechcook:@localhost:5432/serenity_discussion_1

@@ -11,9 +11,13 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
   }
 
-  var envConfig = require('config').app;
-  databaseUrl = envConfig.pgURL ||
-      'postgres://' + envConfig.pg.username + ':' + envConfig.pg.password + '@' + envConfig.pg.host + ':5432/' + envConfig.pg.database;
+  var envConfig = require('config');
+  databaseUrl = envConfig.get('app.pgURL') ||
+      'postgres://' + envConfig.get('app.pg.username') +
+      ':' + envConfig.get('app.pg.password') +
+      '@' + envConfig.get('app.pg.host') +
+      ':' + envConfig.get('app.pg.port') +
+      '/' + envConfig.get('app.pg.database');
 
 
   // Project Configuration
@@ -63,7 +67,7 @@ module.exports = function(grunt) {
     migrate: {
       options: {
         env: {
-          DATABASE_URL: databaseUrl   // the databaseUrl is resolved at the beginning based on the NODE_ENV, this value injects the config in the database.json
+          DATABASE_URL: databaseUrl   // the databaseUrl is resolved at the beginning based on the NODE_ENV
         },
         'migrations-dir': 'config/schema-migrations', // defines the dir for the migration scripts
         verbose: true   // tell me more stuff
@@ -74,8 +78,7 @@ module.exports = function(grunt) {
         NODE_ENV: 'test'
       },
       local: {
-        NODE_ENV: 'local',
-        DEBUG: true
+        NODE_ENV: 'local'
       }
     }
   });
