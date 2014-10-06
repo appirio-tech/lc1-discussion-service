@@ -59,7 +59,10 @@ module.exports = function(grunt) {
     mochaTest: {
       test: {
         options: {
-          reporter: 'spec'
+          reporter: 'spec',
+          require: [
+            'app.js'
+          ]
         },
         src: ['test/**/*.js']
       }
@@ -75,7 +78,8 @@ module.exports = function(grunt) {
     },
     env: {
       test: {
-        NODE_ENV: 'test'
+        NODE_ENV: 'test',
+        A127_APPROOT: __dirname
       },
       local: {
         NODE_ENV: 'local'
