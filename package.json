@@ -31,7 +31,8 @@
     "lodash": "^2.4.1",
     "pg": "^3.4.1",
     "sequelize": "^1.7.10",
-    "time-grunt": "^0.3.1"
+    "time-grunt": "^0.3.1",
+    "swagger-tools": "0.5.8"
   },
   "devDependencies": {
     "should": "^4.0.4",
