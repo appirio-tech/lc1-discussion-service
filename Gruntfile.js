@@ -7,6 +7,10 @@ var paths = {
 module.exports = function(grunt) {
   var databaseUrl;
 
+  var re;
+  var swagger;
+  var swagger_file = __dirname + '/api/swagger/swagger.yaml';
+
   if (process.env.NODE_ENV !== 'production') {
     require('time-grunt')(grunt);
   }
@@ -109,5 +113,31 @@ module.exports = function(grunt) {
   });
   grunt.registerTask('dbdown', 'db down all the appliable scripts', function () {
     grunt.task.run('migrate:down');
+  });
+
+  // yaml tester for ./api/swagger/swagger.yaml
+  grunt.task.registerTask('yamlTest', 'Test Swagger spec file', function () {
+
+    // load the grunt-swagger-tools
+    try {
+      // https://www.npmjs.org/package/grunt-swagger-tools
+      swagger = require('grunt-swagger-tools')();
+
+      // // Setup 2.0 Swagger spec compliant using YAML format
+      swagger.validator.set('fileext', '.yaml');
+
+      // No logging of loaded YAML data
+      swagger.validator.set('log', 'true');
+
+      // Run the validator on file at swagger_file
+      console.log('YAML Test for file: ' + swagger_file + '\n');
+      re = swagger.validator.Validate(swagger_file, undefined, {version: '2.0'});
+
+    } catch (e) {
+      re = e.message;
+    }
+
+    // If has error, result in console
+    console.log('YAML 2.0 RESULT: ' + re + '\n');
   });
 };

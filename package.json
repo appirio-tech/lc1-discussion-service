@@ -25,6 +25,7 @@
     "grunt-db-migrate": "0.2.0",
     "grunt-env": "^0.4.1",
     "grunt-nodemon": "0.2.1",
+    "grunt-swagger-tools": "0.1.1",
     "js-yaml": "",
     "load-grunt-tasks": "^0.4.0",
     "lodash": "^2.4.1",
