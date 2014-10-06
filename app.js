@@ -6,11 +6,20 @@ var bodyParser = require('body-parser');
 var config = require('config');
 var datasource = require('./datasource');
 var routeHelper = require('./lib/routeHelper');
+var swaggerTools = require('swagger-tools');
+var yaml = require('js-yaml');
+var fs = require('fs');
 
 var app = express();
+var swaggerUi = swaggerTools.middleware.v2.swaggerUi;
 
 // uncomment the following if you need to parse incoming form data
 app.use(bodyParser.json());
+
+
+// Serve the Swagger documents and Swagger UI
+var swaggerDoc = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
+app.use(swaggerUi(swaggerDoc));
 
 // @TODO add try/catch logic
 datasource.init(config);

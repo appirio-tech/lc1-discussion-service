@@ -20,11 +20,13 @@ produces:
 x-volos-resources: {}
 paths:
   /discussions:
-    x-swagger-router-controller: discussions
     post:
+      x-swagger-router-controller: discussions
       description: Create a new discusion
       # used as the method name of the controller
       operationId: create
+      tags:
+        - discussion
       parameters:
         - name: body
           in: body
@@ -41,10 +43,12 @@ paths:
           schema:
             $ref: ErrorResponse
   /discussions/{discussionId}:
-    x-swagger-router-controller: discussions
     get:
+      x-swagger-router-controller: discussions
       description: Get a discussion
       operationId: findById
+      tags:
+        - discussion
       parameters:
         - name: discussionId
           in: path
@@ -69,10 +73,13 @@ paths:
           schema:
             $ref: ErrorResponse
   /discussions/{discussionId}/messages:
-    x-swagger-router-controller: messages
     post:
+      x-swagger-router-controller: messages
       description: Create a Message
       operationId: create
+      tags:
+        - discussion
+        - message
       parameters:
         - name: discussionId
           in: path
@@ -95,8 +102,12 @@ paths:
           schema:
             $ref: ErrorResponse
     get:
+      x-swagger-router-controller: messages
       description: Get all messages for a discussion
       operationId: getAllbyDiscussion
+      tags:
+        - discussion
+        - messages
       parameters:
         - name: discussionId
           in: path
@@ -114,10 +125,13 @@ paths:
           schema:
             $ref: ErrorResponse
   /discussions/{discussionId}/messages/{messageId}:
-    x-swagger-router-controller: messages
     get:
+      x-swagger-router-controller: messages
       description: Get a Message and it's children
       operationId: findById
+      tags:
+        - discussion
+        - messages
       parameters:
         - name: discussionId
           in: path
@@ -149,8 +163,12 @@ paths:
           schema:
             $ref: ErrorResponse
     put:
+      x-swagger-router-controller: messages
       description: Update a message
       operationId: update
+      tags:
+        - discussion
+        - message
       parameters:
         - name: discussionId
           in: path
@@ -187,8 +205,12 @@ paths:
           schema:
             $ref: ErrorResponse
     delete:
+      x-swagger-router-controller: messages
       description: Delete a messsage
       operationId: delete
+      tags:
+        - discussion
+        - message
       parameters:
         - name: discussionId
           in: path
@@ -218,10 +240,14 @@ paths:
           schema:
             $ref: ErrorResponse
   /discussions/{discussionId}/messages/{messageId}/messages:
-    x-swagger-router-controller: messages
     post:
+      x-swagger-router-controller: messages
       description: Create a reply to a message.  The message ID path param will be used as the parent id for the message.
       operationId: reply
+      tags:
+        - discussion
+        - message
+        - reply
       parameters:
         - name: discussionId
           in: path
@@ -314,7 +340,7 @@ definitions:
         items:
           minItems: 0
           uniqueItems: true
-          $ref: MessageResource
+          #$ref: MessageResource // we should cancel this annotation once this issue(https://github.com/wordnik/swagger-js/issues/137) solved.
       createdAt:
         type: string
         format: date-time
@@ -373,4 +399,3 @@ definitions:
         description: The http status code
       message:
         type: string
-
