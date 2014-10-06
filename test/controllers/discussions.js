@@ -1,8 +1,8 @@
 'use strict';
 
-
 var should = require('should'); 
 var assert = require('assert');
+// var app = require('../../app');
 var request = require('supertest');
 var async = require('async');
 var config = require('config');
@@ -15,6 +15,7 @@ var sequelize = db.sequelize;
 sequelize.options.logging = false;
 var Discussion = db.Discussion;
 
+console.log('db: ', db);
 
 
 describe('Discussions Controller', function() {

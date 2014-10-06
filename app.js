@@ -30,5 +30,6 @@ app.use(routeHelper.errorHandler);
 app.use(routeHelper.renderJson);
 
 app.listen(port);
-
 console.log('app started at '+port);
+
+module.exports = app;
