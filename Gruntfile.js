@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 
 
   if (envConfig.has('app.pgURL')) {
-    databaseUrl = envConfig.get('app.pgURL')
+    databaseUrl = envConfig.get('app.pgURL');
   } else {
     databaseUrl =  'postgres://' + envConfig.get('app.pg.username') +
     ':' + envConfig.get('app.pg.password') +
