@@ -7,13 +7,17 @@ module.exports = function(config) {
   var _ = require('lodash');
 
   // reading config.
-  var postgresurl = config.get('app.pgURL') ||
-    (config.get('app.pg.dialect') +'://' +
-    config.get('app.pg.username') + ':' +
-    config.get('app.pg.password') + '@' +
-    config.get('app.pg.host') + ':' +
-    config.get('app.pg.port') + '/' +
-    config.get('app.pg.database'));
+  var postgresurl;
+
+  if (config.has('app.pgURL')) {
+    postgresurl = config.get('app.pgURL');
+  } else {
+    postgresurl =  'postgres://' + config.get('app.pg.username') +
+    ':' + config.get('app.pg.password') +
+    '@' + config.get('app.pg.host') +
+    ':' + config.get('app.pg.port') +
+    '/' + config.get('app.pg.database');
+  }
 
   var sequelize = new Sequelize(postgresurl);
   var db = {};
