@@ -33,11 +33,44 @@ paths:
           required: true
           schema:
             $ref: DiscussionBody
+          description: field name to sort {asc [nulls {first | last} ] | desc  [nulls {first | last} }
       responses:
         "200":
           description: Success
           schema:
             $ref: ActionResponse
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
+    get:
+      x-swagger-router-controller: dicussions
+      description: Get Dicussions
+      tags:
+        -dicussion
+      parameters:
+        - name: filter
+          in: query
+          type: string
+          description: "{fieldName1}={fieldValue1}&...{fieldNameN}>{fieldValueN}. String value needs to be surrounded by single quotation(‘). fieldValue can contain multiple values using in() format {fieldName}=in({fieldValue1},{fieldValue1}). Operations can be =, > or <.  < and > operations are only for number, integers and dates"
+        - name: limit
+          in: query
+          type: integer
+          format: int32
+          description: maximum number of records to return
+        - name: offset
+          in: query
+          type: integer
+          format: int32
+          description: id to start return values
+        - name: orderBy
+          in: query
+          type: string
+      responses:
+        "200":
+          description: Return a Discussion Resource
+          schema:
+            $ref: DicussionsResponse
         default:
           description: Error
           schema:
@@ -56,24 +89,6 @@ paths:
           required: true
           type: integer
           format: int64
-        - name: filter
-          in: query
-          type: string
-          description: "{fieldName1}={fieldValue1}&...{fieldNameN}>{fieldValueN}. String value needs to be surrounded by single quotation(‘). fieldValue can contain multiple values using in() format {fieldName}=in({fieldValue1},{fieldValue1}). Operations can be =, > or <.  < and > operations are only for number, integers and dates"
-        - name: limit
-          in: query
-          type: integer
-          format: int32
-          description: maximum number of records to return
-        - name: offset
-          in: query
-          type: integer
-          format: int32
-          description: id to start return values
-        - name: orderBy
-          in: query
-          type: string
-          description: field name to sort {asc [nulls {first | last} ] | desc  [nulls {first | last} }
       responses:
         "200":
           description: Return a Discussion Resource
@@ -363,6 +378,27 @@ definitions:
         $ref: MetadataListResponse
       content:
         $ref: DiscussionResource
+  DicussionsResponse:
+    required:
+      - status
+      - success
+      - content
+    properties:
+      success:
+        type: boolean
+        description: Was the request a success
+      status:
+        type: integer
+        format: int32
+        description: The http status code
+      metadata:
+        $ref: MetadataListResponse
+      content:
+        type: array
+        items:
+          $ref: DiscussionResource
+          minItems: 0
+          uniqueItems: true
   DiscussionResource:
     required:
       - discussionId
