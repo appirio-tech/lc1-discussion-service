@@ -1,11 +1,10 @@
 app:
   pgURL: 'postgres://postgres@localhost:5432/travis_ci_test'
   pg:
-    database: 'dcng3o2l193uu5'
-    username: 'oiwqpqmndoiuxn'
-    password: 'qqqZZPhfgMkHn7SA275joHQ0-K'
-    host: 'ec2-23-23-80-55.compute-1.amazonaws.com'
-    dialect: 'postgres'
-    port: 5432
-    ssl: true
+    database:
+    username:
+    password:
+    host:
+    dialect:
+    port:
   port: 10010
