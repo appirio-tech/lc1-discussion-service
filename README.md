@@ -7,10 +7,10 @@ Routing is done using [swagger tools](https://github.com/apigee-127/swagger-tool
 
 ## Swagger
 
-The documentaiton for the API and resources are in swagger.  You can view the swagger config using a127 tools.
+The documentaiton for the API and resources are in swagger.  You can view the swagger config using a127 tools or the built in Swagger UI.
 
-Edit swagger config: ```a127 project edit```
-View
+To Edit/view swagger config run ```a127 project edit``` from project root
+You can also view the swagger config via the /docs url when the project is running.
 
 
 ## Configuration
