@@ -37,3 +37,6 @@ config/.a127_secrets
 # local env
 config/local.yaml
 config/local-*.yaml
+
+# misc files
+.DS_Store

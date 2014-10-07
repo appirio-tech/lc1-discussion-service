@@ -108,7 +108,7 @@ module.exports = function(grunt) {
   grunt.registerTask('validate', ['env:test', 'mochaTest', 'jshint']);
 
   //Test task.
-  grunt.registerTask('test', ['env:test', 'mochaTest']);
+  grunt.registerTask('test', ['env:test', 'dbmigrate', 'mochaTest', 'yamlTest', 'jshint']);
 
   // For Heroku users only.
   grunt.registerTask('heroku:production', ['jshint']);
