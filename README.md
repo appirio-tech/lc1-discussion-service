@@ -1,6 +1,12 @@
-## Travis CI build status
+## Build Status
+
+Travis Ci:
 
 [![Build Status](https://travis-ci.org/topcoderinc/serenity-discussions-api.svg?branch=master)](https://travis-ci.org/topcoderinc/serenity-discussions-api)
+
+Wercker:
+
+[![wercker status](https://app.wercker.com/status/390f3f96c8d649ec41a49f9c486c512f/m "wercker status")](https://app.wercker.com/project/bykey/390f3f96c8d649ec41a49f9c486c512f)
 
 ## serenity-discussion-api is a Discussion API Service
 
