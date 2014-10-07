@@ -16,6 +16,8 @@ The documentaiton for the API and resources are in swagger.  You can view the sw
 To Edit/view swagger config run ```a127 project edit``` from project root
 You can also view the swagger config via the /docs url when the project is running.
 
+Current API Documentation can be found here:  http://lc1-discussion-service.herokuapp.com/docs/
+
 
 ## Configuration
 
