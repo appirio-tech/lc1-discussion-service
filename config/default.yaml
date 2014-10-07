@@ -1,2 +1,10 @@
 app:
+  pgURL: 'postgres://postgres@localhost:5432/travis_ci_test'
+  pg:
+    database:
+    username:
+    password:
+    host:
+    dialect:
+    port:
   port: 10010
