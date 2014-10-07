@@ -1,3 +1,7 @@
+## Travis CI build status
+
+[![Build Status](https://travis-ci.org/topcoderinc/serenity-discussions-api.svg?branch=master)](https://travis-ci.org/topcoderinc/serenity-discussions-api)
+
 ## serenity-discussion-api is a Discussion API Service
 
 The topcoder Discussion API was initially built using the [Apigee a127 scaffolding](https://github.com/apigee-127/a127-documentation/wiki).
