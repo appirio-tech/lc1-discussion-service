@@ -402,13 +402,13 @@ definitions:
   DiscussionResource:
     required:
       - discussionId
-      - remoteObjectName
+      - remoteObjectKey
       - remoteObjectId
     properties:
       discussionId:
         type: integer
         format: int64
-      remoteObjectName:
+      remoteObjectKey:
         type: string
       remoteObjectId:
         type: integer
@@ -465,10 +465,10 @@ definitions:
         description: The handle fo the user
   DiscussionBody:
     required:
-      - remoteObjectName
+      - remoteObjectKey
       - remoteObjectId
     properties:
-      remoteObjectName:
+      remoteObjectKey:
         description: The type of object which a discussion is attached. for example challenge or submission
         type: string
       remoteObjectId:
