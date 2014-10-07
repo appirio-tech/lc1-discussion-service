@@ -6,6 +6,9 @@ build:
     # A step that executes `npm install` command
     - npm-install
     # A step that executes `npm test` command
+    - script:
+      name: Migrate DB
+      code: "grunt dbmigrate"
     - npm-test
 
     # A custom script step, name value is used in the UI
