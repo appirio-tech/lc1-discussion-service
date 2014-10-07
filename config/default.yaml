@@ -6,4 +6,5 @@ app:
     host: 'ec2-23-23-80-55.compute-1.amazonaws.com'
     dialect: 'postgres'
     port: 5432
+    ssl: true
   port: 10010
