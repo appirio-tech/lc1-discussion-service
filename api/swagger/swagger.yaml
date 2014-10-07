@@ -377,6 +377,10 @@ definitions:
       remoteObjectId:
         type: integer
         format: int64
+      messageCount:
+        type: integer
+        format: int32
+        description: The number of first level messages for this dicussion.
       createdAt:
         type: string
         format: date-time
@@ -407,6 +411,10 @@ definitions:
         description: The parent Message.  optional
         type: integer
         format: int64
+      messageCount:
+        type: integer
+        format: int32
+        description: The number of child messages this message
       createdAt:
         type: string
         format: date-time
