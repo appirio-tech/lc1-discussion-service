@@ -38,10 +38,25 @@ paths:
           description: Success
           schema:
             $ref: PostResponse
+          examples:
+            application/json: |-
+              {
+                  "id": 6,
+                  "result": {
+                    "success": true,
+                    "status": 200
+                  }
+              }
         default:
           description: Error
           schema:
             $ref: ErrorResponse
+          examples:
+            application/json: |-
+              {
+                  "code": 400,
+                  "message": "Parameter (body) is not a valid DiscussionBody model"
+              }
   /discussions/{discussionId}:
     get:
       x-swagger-router-controller: discussions
@@ -68,10 +83,41 @@ paths:
                 format: int32
               content:
                 $ref: DiscussionResource
+          examples:
+            application/json: |-
+              {
+                  "success": true,
+                  "status": 200,
+                  "content": {
+                    "discussionId": 4,
+                    "remoteObjectId": 1,
+                    "remoteObjectName": "Star Wars saga",
+                    "createdBy": "_indy",
+                    "updatedBy": "_indy",
+                    "createdAt": "2014-10-07T23:25:45.168Z",
+                    "updatedAt": "2014-10-07T23:25:45.168Z",
+                    "messages": [{
+                      "messageId": 8,
+                      "discussionId": 4,
+                      "parentMessageId": null,
+                      "content": "Best saga ever",
+                      "createdBy": "_indy",
+                      "updatedBy": "_indy",
+                      "createdAt": "2014-10-07T23:26:38.669Z",
+                      "updatedAt": "2014-10-07T23:26:38.669Z"
+                    }]
+                  }
+              }
         default:
           description: Error
           schema:
             $ref: ErrorResponse
+          examples:
+            application/json: |-
+              {
+                  "code": 400,
+                  "message": "Parameter (discussionId) is not a valid int64 integer: a"
+              }
   /discussions/{discussionId}/messages:
     post:
       x-swagger-router-controller: messages
@@ -97,10 +143,25 @@ paths:
           description: Success
           schema:
             $ref: PostResponse
+          examples:
+            application/json: |-
+              {
+                  "id": 9,
+                  "result": {
+                    "success": true,
+                    "status": 200
+                  }
+              }
         default:
           description: Error
           schema:
             $ref: ErrorResponse
+          examples:
+            application/json: |-
+              {
+                  "code": 400,
+                  "message": "Invalid content type (text/plain).  These are valid: application/json"
+              }
     get:
       x-swagger-router-controller: messages
       description: Get all messages for a discussion
@@ -120,6 +181,32 @@ paths:
           description: Sucess
           schema:
             $ref: MessagesResponse
+          examples:
+            application/json: |-
+              {
+                  "messages": [{
+                    "messageId": 8,
+                    "discussionId": 4,
+                    "parentMessageId": null,
+                    "content": "Best saga ever",
+                    "createdBy": "_indy",
+                    "updatedBy": "_indy",
+                    "createdAt": "2014-10-07T23:26:38.669Z",
+                    "updatedAt": "2014-10-07T23:26:38.669Z",
+                    "messages": []
+                  },
+                  {
+                    "messageId": 9,
+                    "discussionId": 4,
+                    "parentMessageId": null,
+                    "content": "My favorite is the first one - The Phantom Menace",
+                    "createdBy": "_indy",
+                    "updatedBy": "_indy",
+                    "createdAt": "2014-10-08T00:05:36.211Z",
+                    "updatedAt": "2014-10-08T00:12:01.367Z",
+                    "messages": []
+                  }]
+              }
         default:
           description: Error
           schema:
@@ -158,10 +245,33 @@ paths:
                 description:  The HTTP status code
               content:
                 $ref: MessageResource
+          examples:
+            application/json: |-
+              {
+                  "success": true,
+                  "status": 200,
+                  "content": {
+                    "messageId": 9,
+                    "discussionId": 4,
+                    "parentMessageId": null,
+                    "content": "My favorite is espisode 1 - The Phantom Menace",
+                    "createdBy": "_indy",
+                    "updatedBy": "_indy",
+                    "createdAt": "2014-10-08T00:05:36.211Z",
+                    "updatedAt": "2014-10-08T00:05:36.211Z",
+                    "messages": []
+                  }
+              }
         default:
           description: Error
           schema:
             $ref: ErrorResponse
+          examples:
+            application/json: |-
+              {
+                  "code": 404,
+                  "message": "Cannot find the message with messageId 10 in the discussion 4"
+              }
     put:
       x-swagger-router-controller: messages
       description: Update a message
@@ -200,10 +310,32 @@ paths:
                 description:  The HTTP status code
               content:
                 $ref: MessageResource
+          examples:
+            application/json: |-
+              {
+                  "success": true,
+                  "status": 200,
+                  "content": {
+                    "messageId": 9,
+                    "discussionId": 4,
+                    "parentMessageId": null,
+                    "content": "My favorite is the first one - The Phantom Menace",
+                    "createdBy": "_indy",
+                    "updatedBy": "_indy",
+                    "createdAt": "2014-10-08T00:05:36.211Z",
+                    "updatedAt": "2014-10-08T00:12:01.367Z"
+                  }
+              }
         default:
           description: Error
           schema:
             $ref: ErrorResponse
+          examples:
+            application/json: |-
+              {
+                  "code": 400,
+                  "message": "Invalid content type (text/plain).  These are valid: application/json"
+              }
     delete:
       x-swagger-router-controller: messages
       description: Delete a messsage
@@ -235,10 +367,22 @@ paths:
               status:
                 type: integer
                 description:  The HTTP status code
+          examples:
+            application/json: |-
+              {
+                  "success": true,
+                  "status": 200
+              }
         default:
           description: Error
           schema:
             $ref: ErrorResponse
+          examples:
+            application/json: |-
+              {
+                  "code": 400,
+                  "message": "invalid json"
+              }
   /discussions/{discussionId}/messages/{messageId}/messages:
     post:
       x-swagger-router-controller: messages
@@ -271,6 +415,15 @@ paths:
           description: Sucessful reply
           schema:
             $ref: PostResponse
+          examples:
+            application/json: |-
+              {
+                  "id": 14,
+                  "result": {
+                    "success": true,
+                    "status": 200
+                  }
+              }
 # complex objects have schema definitions
 definitions:
   MessagesResponse:
