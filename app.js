@@ -26,7 +26,7 @@ datasource.init(config);
 
 var port;
 if (process.env.PORT) {
-	port = process.env.PORT;
+  port = process.env.PORT;
 } else if (config.has('app.port')) {
   port = config.get('app.port');
 } else {
