@@ -3,7 +3,7 @@ info:
   version: "0.0.1"
   title: Serenity Discussion API
 # during dev, should point to your local machine
-host: localhost
+host: lc1-discussion-service.herokuapp.com
 # basePath prefixes all resource paths 
 basePath: /
 # 
