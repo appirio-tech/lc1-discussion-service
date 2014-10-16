@@ -25,7 +25,9 @@ app.use(swaggerUi(swaggerDoc));
 datasource.init(config);
 
 var port;
-if (config.has('app.port')) {
+if (process.env.PORT) {
+	port = process.env.PORT;
+} else if (config.has('app.port')) {
   port = config.get('app.port');
 } else {
   port = 10010;

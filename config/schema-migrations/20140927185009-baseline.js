@@ -8,7 +8,7 @@ exports.up = function (db, callback) {
     db.runSql.bind(db,
        'CREATE TABLE discussions ( ' +
            '"discussionId" bigserial NOT NULL, ' +
-           '"remoteObjectName" character varying(255) NOT NULL, ' +
+           '"remoteObjectKey" character varying(255) NOT NULL, ' +
            '"remoteObjectId" bigint NOT NULL, ' +
            '"createdBy" character varying(128), ' +
            '"updatedBy" character varying(128), ' +

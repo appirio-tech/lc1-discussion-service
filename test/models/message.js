@@ -36,7 +36,7 @@ describe('Model Unit Test', function() {
     });
 
     describe('Method Save', function() {
-      it('should be able to save without problems', function(done) {
+      it('should able to save without problems', function(done) {
         Message.create(data).success(function(created) {
           created.messageId.should.be.a.Number;
           created.messageId.should.not.have.length(0);
@@ -127,7 +127,7 @@ describe('Model Unit Test', function() {
       });
 
 
-      it('should not able to find a message with invalid id', function(done) {
+      it('should fail to find a message with invalid id', function(done) {
         Message.find(999999).success(function(retrieved) {
           should.not.exist(retrieved);
           done();

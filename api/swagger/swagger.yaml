@@ -37,26 +37,45 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: PostResponse
-          examples:
-            application/json: |-
-              {
-                  "id": 6,
-                  "result": {
-                    "success": true,
-                    "status": 200
-                  }
-              }
+            $ref: ActionResponse
         default:
           description: Error
           schema:
             $ref: ErrorResponse
-          examples:
-            application/json: |-
-              {
-                  "code": 400,
-                  "message": "Parameter (body) is not a valid DiscussionBody model"
-              }
+    get:
+      x-swagger-router-controller: discussions
+      description: Get Discussions
+      operationId: getDiscussions
+      tags:
+        - discussion
+      parameters:
+        - name: filter
+          in: query
+          type: string
+          description: "{fieldName1}={fieldValue1}&...{fieldNameN}>{fieldValueN}. String value needs to be surrounded by single quotation(‘). fieldValue can contain multiple values using in() format {fieldName}=in({fieldValue1},{fieldValue2}). Operations can be =, > or <.  < and > operations are only for number, integers and dates"
+        - name: limit
+          in: query
+          type: integer
+          format: int32
+          description: maximum number of records to return
+        - name: offset
+          in: query
+          type: integer
+          format: int32
+          description: id to start return values
+        - name: orderBy
+          in: query
+          type: string
+          description: field name to sort {asc [nulls {first | last} ] | desc  [nulls {first | last} }
+      responses:
+        "200":
+          description: Return a Discussion Resource
+          schema:
+            $ref: DiscussionsResponse
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
   /discussions/{discussionId}:
     get:
       x-swagger-router-controller: discussions
@@ -75,39 +94,7 @@ paths:
         "200":
           description: Return a Discussion Resource
           schema:
-            properties:
-              success:
-                type: boolean
-              status:
-                type: integer
-                format: int32
-              content:
-                $ref: DiscussionResource
-          examples:
-            application/json: |-
-              {
-                  "success": true,
-                  "status": 200,
-                  "content": {
-                    "discussionId": 4,
-                    "remoteObjectId": 1,
-                    "remoteObjectName": "Star Wars saga",
-                    "createdBy": "_indy",
-                    "updatedBy": "_indy",
-                    "createdAt": "2014-10-07T23:25:45.168Z",
-                    "updatedAt": "2014-10-07T23:25:45.168Z",
-                    "messages": [{
-                      "messageId": 8,
-                      "discussionId": 4,
-                      "parentMessageId": null,
-                      "content": "Best saga ever",
-                      "createdBy": "_indy",
-                      "updatedBy": "_indy",
-                      "createdAt": "2014-10-07T23:26:38.669Z",
-                      "updatedAt": "2014-10-07T23:26:38.669Z"
-                    }]
-                  }
-              }
+            $ref: DiscussionResponse
         default:
           description: Error
           schema:
@@ -142,16 +129,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: PostResponse
-          examples:
-            application/json: |-
-              {
-                  "id": 9,
-                  "result": {
-                    "success": true,
-                    "status": 200
-                  }
-              }
+            $ref: ActionResponse
         default:
           description: Error
           schema:
@@ -168,7 +146,7 @@ paths:
       operationId: getAllbyDiscussion
       tags:
         - discussion
-        - messages
+        - message
       parameters:
         - name: discussionId
           in: path
@@ -178,7 +156,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Sucess
+          description: Success
           schema:
             $ref: MessagesResponse
           examples:
@@ -218,7 +196,7 @@ paths:
       operationId: findById
       tags:
         - discussion
-        - messages
+        - message
       parameters:
         - name: discussionId
           in: path
@@ -236,32 +214,7 @@ paths:
         "200":
           description: A successufly response
           schema:
-            properties:
-              success:
-                type: boolean
-                description: True or False if the request was a success
-              status:
-                type: integer
-                description:  The HTTP status code
-              content:
-                $ref: MessageResource
-          examples:
-            application/json: |-
-              {
-                  "success": true,
-                  "status": 200,
-                  "content": {
-                    "messageId": 9,
-                    "discussionId": 4,
-                    "parentMessageId": null,
-                    "content": "My favorite is espisode 1 - The Phantom Menace",
-                    "createdBy": "_indy",
-                    "updatedBy": "_indy",
-                    "createdAt": "2014-10-08T00:05:36.211Z",
-                    "updatedAt": "2014-10-08T00:05:36.211Z",
-                    "messages": []
-                  }
-              }
+            $ref: MessageResponse
         default:
           description: Error
           schema:
@@ -358,21 +311,9 @@ paths:
           format: int64
       responses:
         "200":
-          description: Success
+          description: Successful reply
           schema:
-            properties:
-              success:
-                type: boolean
-                description: True or False if the request was a success
-              status:
-                type: integer
-                description:  The HTTP status code
-          examples:
-            application/json: |-
-              {
-                  "success": true,
-                  "status": 200
-              }
+            $ref: ActionResponse
         default:
           description: Error
           schema:
@@ -412,51 +353,138 @@ paths:
             $ref: MessageBody
       responses:
         "200":
-          description: Sucessful reply
+          description: Successful reply
           schema:
-            $ref: PostResponse
-          examples:
-            application/json: |-
-              {
-                  "id": 14,
-                  "result": {
-                    "success": true,
-                    "status": 200
-                  }
-              }
+            $ref: ActionResponse
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
+    get:
+      x-swagger-router-controller: messages
+      description: Get the child messages for a message
+      operationId: getMessages
+      tags:
+        - discussion
+        - message
+      parameters:
+        - name: discussionId
+          in: path
+          description:  Id of discussion
+          required: true
+          type: integer
+          format: int64
+        - name: messageId
+          in: path
+          description:  Id of message
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Successful reply
+          schema:
+            $ref: MessagesResponse
+        default:
+          description: Error
+          schema:
+            $ref: ErrorResponse
 # complex objects have schema definitions
 definitions:
   MessagesResponse:
     required:
-      - messages
+      - status
+      - success
+      - content
     properties:
-      messages:
+      success:
+        type: boolean
+        description: Was the request a success
+      status:
+        type: integer
+        format: int32
+        description: The http status code
+      metadata:
+        $ref: MetadataListResponse
+      content:
         type: array
         items:
           $ref: MessageResource
+          minItems: 0
+          uniqueItems: true
+  MessageResponse:
+    required:
+      - status
+      - success
+      - content
+    properties:
+      success:
+        type: boolean
+        description: Was the request a success
+      status:
+        type: integer
+        format: int32
+        description: The http status code
+      metadata:
+        $ref: MetadataListResponse
+      content:
+        $ref: MessageResource
+  DiscussionResponse:
+    required:
+      - status
+      - success
+      - content
+    properties:
+      success:
+        type: boolean
+        description: Was the request a success
+      status:
+        type: integer
+        format: int32
+        description: The http status code
+      metadata:
+        $ref: MetadataListResponse
+      content:
+        $ref: DiscussionResource
+  DiscussionsResponse:
+    required:
+      - status
+      - success
+      - content
+    properties:
+      success:
+        type: boolean
+        description: Was the request a success
+      status:
+        type: integer
+        format: int32
+        description: The http status code
+      metadata:
+        $ref: MetadataListResponse
+      content:
+        type: array
+        items:
+          $ref: DiscussionResource
           minItems: 0
           uniqueItems: true
   DiscussionResource:
     required:
       - discussionId
-      - remoteObjectName
+      - remoteObjectKey
       - remoteObjectId
-      - messages
     properties:
       discussionId:
         type: integer
         format: int64
-      remoteObjectName:
+      remoteObjectKey:
         type: string
       remoteObjectId:
         type: integer
         format: int64
-      messages:
-        type: array
-        items:
-          $ref: MessageResource
-          minItems: 0
-          uniqueItems: true
+      messageCount:
+        type: integer
+        format: int32
+        description: The number of first level messages for this discussion.
       createdAt:
         type: string
         format: date-time
@@ -487,13 +515,10 @@ definitions:
         description: The parent Message.  optional
         type: integer
         format: int64
-      messages:
-        description: The child messages
-        type: array
-        items:
-          minItems: 0
-          uniqueItems: true
-          #$ref: MessageResource // we should cancel this annotation once this issue(https://github.com/wordnik/swagger-js/issues/137) solved.
+      messageCount:
+        type: integer
+        format: int32
+        description: The number of child messages for this message
       createdAt:
         type: string
         format: date-time
@@ -506,28 +531,12 @@ definitions:
       updatedBy:
         type: string
         description: The handle fo the user
-  PostResponse:
-    required:
-      - id
-    properties:
-      id:
-        type: integer
-        format: int64
-      result:
-        properties:
-          success:
-            type: boolean
-            description: Was the request a success
-          status:
-            type: integer
-            format: int32
-            description: The http status code
   DiscussionBody:
     required:
-      - remoteObjectName
+      - remoteObjectKey
       - remoteObjectId
     properties:
-      remoteObjectName:
+      remoteObjectKey:
         description: The type of object which a discussion is attached. for example challenge or submission
         type: string
       remoteObjectId:
@@ -541,14 +550,39 @@ definitions:
       content:
         description:  The content of the message
         type: string
-  ErrorResponse:
+  ActionResponse:
     required:
-      - code
-      - message
+      - id
     properties:
-      code:
+      id:
+        type: integer
+        format: int64
+        description:  The ID that was created for a new object.  Otherwise the id of the affected object
+      result:
+        properties:
+          success:
+            type: boolean
+            description: Was the request a success
+          status:
+            type: integer
+            format: int32
+            description: The http status code
+  MetadataListResponse:
+    properties:
+      totalCount:
         type: integer
         format: int32
-        description: The http status code
-      message:
-        type: string
+  ErrorResponse:
+    properties:
+      result:
+        properties:
+          success:
+            type: boolean
+            description: Was the request a success.  Should be false
+          status:
+            type: integer
+            format: int32
+            description: The http status code
+          content:
+            type: string
+            description: The error message
