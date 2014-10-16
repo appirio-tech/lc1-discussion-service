@@ -26,8 +26,8 @@ describe('Messages Controller', function() {
   // create a discussion
   before(function(done) {
     var discussionData = {
-      remoteObjectName: 'challenge',
-      remoteObjectId: 12345
+      remoteObjectKey: 'challenge',
+      remoteObjectId: 5678
     };
     Discussion.create(discussionData).success(function (createdDiscussion) {
       discussion = createdDiscussion;
@@ -45,7 +45,7 @@ describe('Messages Controller', function() {
   });
 
   describe('Messages API', function() {
-    it('should be able to create a message with valid data', function(done) {
+    it('should able to create a message with valid data', function(done) {
       // send request
       request(url)
     	.post('/discussions/'+discussion.discussionId+'/messages')
@@ -65,15 +65,15 @@ describe('Messages Controller', function() {
     });
 
     it('should fail to create a message with invalid discussionId', function(done) {
-      delete reqData.remoteObjectName;
       // send request
       request(url)
       .post('/discussions/'+9999999+'/messages')
       .send(reqData)
       .end(function(err, res) {
         res.status.should.equal(404);
-        res.body.code.should.equal(404);
-        res.body.should.have.property('message');
+        res.body.result.success.should.be.false;
+        res.body.result.status.should.equal(404);
+        res.body.should.have.property('content');
         done();
       });
     });
@@ -86,13 +86,33 @@ describe('Messages Controller', function() {
       .send(reqData)
       .end(function(err, res) {
         res.status.should.equal(400);
-        res.body.code.should.equal(400);
-        res.body.should.have.property('message');
+        res.body.result.success.should.be.false;
+        res.body.result.status.should.equal(400);
+        res.body.should.have.property('content');
         done();
       });
     });
 
-    it('should be able to get the existing message', function(done) {
+    it('should able to get the all messages in a discussion', function(done) {
+      var replyData = {content: 'reply content'};
+      // send request
+      request(url)
+      .get('/discussions/'+discussion.discussionId+'/messages/')
+      .end(function(err, res) {
+        should.not.exist(err);
+        // verify response
+        res.status.should.equal(200);
+        res.body.success.should.be.true;
+        res.body.status.should.equal(200);
+        res.body.should.have.property('metadata');
+        res.body.metadata.totalCount.should.be.above(0);
+        res.body.should.have.property('content');
+        res.body.content.length.should.be.above(0);
+        done();
+      });
+    });
+
+    it('should able to get the existing message', function(done) {
       // send request
       request(url)
       .get('/discussions/'+discussion.discussionId+'/messages/'+messageId)
@@ -103,13 +123,12 @@ describe('Messages Controller', function() {
         res.body.content.messageId.should.equal(messageId);
         res.body.content.discussionId.should.equal(discussion.discussionId);
         res.body.content.content.should.equal(reqData.content);
-        // it should have messages
-        res.body.content.should.have.property('messages');
+        res.body.content.should.have.property('messageCount');
         done();
       });
     });
 
-    it('should be able to update the existing message', function(done) {
+    it('should able to update the existing message', function(done) {
       // send request
       reqData.content = 'updated content';
       request(url)
@@ -126,7 +145,7 @@ describe('Messages Controller', function() {
       });
     });
 
-    it('should be able to create a reply message to the existing message', function(done) {
+    it('should able to create a reply message to the existing message', function(done) {
       var replyData = {content: 'reply content'};
       // send request
       request(url)
@@ -143,14 +162,34 @@ describe('Messages Controller', function() {
       });
     });
 
-    it('should be able to delete the existing message', function(done) {
+    it('should able to get the child messages in a message', function(done) {
+      var replyData = {content: 'reply content'};
+      // send request
+      request(url)
+      .get('/discussions/'+discussion.discussionId+'/messages/'+messageId+'/messages')
+      .end(function(err, res) {
+        should.not.exist(err);
+        // verify response
+        res.status.should.equal(200);
+        res.body.success.should.be.true;
+        res.body.status.should.equal(200);
+        res.body.should.have.property('metadata');
+        res.body.metadata.totalCount.should.be.above(0);
+        res.body.should.have.property('content');
+        res.body.content.length.should.be.above(0);
+        done();
+      });
+    });
+
+    it('should able to delete the existing message', function(done) {
       // send request
       request(url)
       .delete('/discussions/'+discussion.discussionId+'/messages/'+messageId)
       .end(function(err, res) {
         res.status.should.equal(200);
-        res.body.success.should.equal(true);
-        res.body.status.should.equal(200);
+        res.body.id.should.be.a.Number;
+        res.body.result.success.should.equal(true);
+        res.body.result.status.should.equal(200);
         done();
       });
     });

@@ -8,3 +8,6 @@ app:
     dialect:
     port:
   port: 10010
+  query:
+    pageSize: 20
+    onlyRootMessages: false
