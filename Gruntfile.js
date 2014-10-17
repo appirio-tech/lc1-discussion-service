@@ -114,10 +114,10 @@ module.exports = function(grunt) {
   grunt.registerTask('heroku:production', ['jshint']);
 
   // db migrate
-  grunt.registerTask('dbmigrate', 'db up all the appliable scripts', function () {
+  grunt.registerTask('dbmigrate', 'db up all the applicable scripts', function () {
     grunt.task.run('migrate:up');
   });
-  grunt.registerTask('dbdown', 'db down all the appliable scripts', function () {
+  grunt.registerTask('dbdown', 'db down all the applicable scripts', function () {
     grunt.task.run('migrate:down');
   });
 
