@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
 
-    remoteObjectName: {type: DataTypes.STRING, allowNull: false},
+    remoteObjectKey: {type: DataTypes.STRING, allowNull: false},
     remoteObjectId: {
       type: DataTypes.BIGINT, allowNull: false,
       // bigint(8bytes) is read as string in sequelize, need to convert to integer
@@ -26,10 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     createdBy: DataTypes.STRING(128),
     updatedBy: DataTypes.STRING(128)
   }, {
-    tableName: 'discussions',
-    associate: function(models) {
-      Discussion.hasMany(models.Message, {as: 'messages', foreignKey: 'discussionId'});
-    }
+    tableName: 'discussions'
   });
 
   return Discussion;

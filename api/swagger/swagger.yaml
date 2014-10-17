@@ -33,7 +33,6 @@ paths:
           required: true
           schema:
             $ref: DiscussionBody
-          description: field name to sort {asc [nulls {first | last} ] | desc  [nulls {first | last} }
       responses:
         "200":
           description: Success
@@ -44,15 +43,16 @@ paths:
           schema:
             $ref: ErrorResponse
     get:
-      x-swagger-router-controller: dicussions
-      description: Get Dicussions
+      x-swagger-router-controller: discussions
+      description: Get Discussions
+      operationId: getDiscussions
       tags:
-        -dicussion
+        - discussion
       parameters:
         - name: filter
           in: query
           type: string
-          description: "{fieldName1}={fieldValue1}&...{fieldNameN}>{fieldValueN}. String value needs to be surrounded by single quotation(‘). fieldValue can contain multiple values using in() format {fieldName}=in({fieldValue1},{fieldValue1}). Operations can be =, > or <.  < and > operations are only for number, integers and dates"
+          description: "{fieldName1}={fieldValue1}&...{fieldNameN}>{fieldValueN}. String value needs to be surrounded by single quotation(‘). fieldValue can contain multiple values using in() format {fieldName}=in({fieldValue1},{fieldValue2}). Operations can be =, > or <.  < and > operations are only for number, integers and dates"
         - name: limit
           in: query
           type: integer
@@ -66,11 +66,12 @@ paths:
         - name: orderBy
           in: query
           type: string
+          description: field name to sort {asc [nulls {first | last} ] | desc  [nulls {first | last} }
       responses:
         "200":
           description: Return a Discussion Resource
           schema:
-            $ref: DicussionsResponse
+            $ref: DiscussionsResponse
         default:
           description: Error
           schema:
@@ -93,7 +94,7 @@ paths:
         "200":
           description: Return a Discussion Resource
           schema:
-            $ref: DicussionResponse
+            $ref: DiscussionResponse
         default:
           description: Error
           schema:
@@ -143,7 +144,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Sucess
+          description: Success
           schema:
             $ref: MessagesResponse
         default:
@@ -244,7 +245,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Sucessful reply
+          description: Successful reply
           schema:
             $ref: ActionResponse
         default:
@@ -280,7 +281,7 @@ paths:
             $ref: MessageBody
       responses:
         "200":
-          description: Sucessful reply
+          description: Successful reply
           schema:
             $ref: ActionResponse
         default:
@@ -288,11 +289,11 @@ paths:
           schema:
             $ref: ErrorResponse
     get:
-      x-swagger-routers-controller: messages
+      x-swagger-router-controller: messages
       description: Get the child messages for a message
       operationId: getMessages
       tags:
-        - dicussion
+        - discussion
         - message
       parameters:
         - name: discussionId
@@ -307,14 +308,9 @@ paths:
           required: true
           type: integer
           format: int64
-        - name: body
-          in: body
-          required: true
-          schema:
-            $ref: MessageBody
       responses:
         "200":
-          description: Sucessful reply
+          description: Successful reply
           schema:
             $ref: MessagesResponse
         default:
@@ -361,7 +357,7 @@ definitions:
         $ref: MetadataListResponse
       content:
         $ref: MessageResource
-  DicussionResponse:
+  DiscussionResponse:
     required:
       - status
       - success
@@ -378,7 +374,7 @@ definitions:
         $ref: MetadataListResponse
       content:
         $ref: DiscussionResource
-  DicussionsResponse:
+  DiscussionsResponse:
     required:
       - status
       - success
@@ -416,7 +412,7 @@ definitions:
       messageCount:
         type: integer
         format: int32
-        description: The number of first level messages for this dicussion.
+        description: The number of first level messages for this discussion.
       createdAt:
         type: string
         format: date-time
@@ -450,7 +446,7 @@ definitions:
       messageCount:
         type: integer
         format: int32
-        description: The number of child messages this message
+        description: The number of child messages for this message
       createdAt:
         type: string
         format: date-time
@@ -511,10 +507,10 @@ definitions:
           success:
             type: boolean
             description: Was the request a success.  Should be false
-        status:
-          type: integer
-          format: int32
-          description: The http status code
-        content:
-          type: string
-          description: The error message
+          status:
+            type: integer
+            format: int32
+            description: The http status code
+          content:
+            type: string
+            description: The error message
