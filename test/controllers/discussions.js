@@ -60,7 +60,7 @@ describe('Discussions Controller', function() {
         res.body.should.have.property('result');
         res.body.result.success.should.be.false;
         res.body.result.status.should.equal(400);
-        res.body.should.have.property('content');
+        res.body.result.should.have.property('content');
         done();
       });
     });
@@ -120,7 +120,7 @@ describe('Discussions Controller', function() {
       .end(function(err, res) {
         res.status.should.equal(404);
         res.body.result.status.should.equal(404);
-        res.body.should.have.property('content');
+        res.body.result.should.have.property('content');
         done();
       });
     });

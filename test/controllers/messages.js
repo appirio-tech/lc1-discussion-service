@@ -73,7 +73,7 @@ describe('Messages Controller', function() {
         res.status.should.equal(404);
         res.body.result.success.should.be.false;
         res.body.result.status.should.equal(404);
-        res.body.should.have.property('content');
+        res.body.result.should.have.property('content');
         done();
       });
     });
@@ -88,7 +88,7 @@ describe('Messages Controller', function() {
         res.status.should.equal(400);
         res.body.result.success.should.be.false;
         res.body.result.status.should.equal(400);
-        res.body.should.have.property('content');
+        res.body.result.should.have.property('content');
         done();
       });
     });
