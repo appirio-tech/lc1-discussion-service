@@ -1,11 +1,11 @@
 'use strict';
 
-var paths = {
-  js: ['*.js', 'api/**/*.js', '!test/coverage/**', '!bower_components/**']
-};
-
 module.exports = function(grunt) {
   var databaseUrl;
+
+  var paths = {
+    js: ['*.js', 'api/**/*.js', 'lib/*.js', '!test/coverage/**', '!bower_components/**']
+  };
 
   var re;
   var swagger;
