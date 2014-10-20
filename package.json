@@ -31,6 +31,7 @@
     "grunt-nodemon": "0.2.1",
     "grunt-swagger-tools": "0.1.1",
     "js-yaml": "",
+    "newrelic": "^1.12.1",
     "load-grunt-tasks": "^0.4.0",
     "lodash": "^2.4.1",
     "pg": "^3.4.1",
