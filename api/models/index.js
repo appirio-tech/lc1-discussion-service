@@ -9,7 +9,10 @@ module.exports = function(config) {
   // reading config.
   var postgresurl;
 
-  if (config.has('app.pgURL')) {
+  // @TODO setup test heroku so we don't need this
+  if (config.has('app.pgURLWercker')) {
+    postgresurl = config.get('app.pgURLWercker');
+  } else if (config.has('app.pgURL')) {
     postgresurl = config.get('app.pgURL');
   } else {
     postgresurl =  'postgres://' + config.get('app.pg.username') +
