@@ -2,7 +2,7 @@
 
 Travis Ci:
 
-[![Build Status](https://travis-ci.org/topcoderinc/serenity-discussions-api.svg?branch=master)](https://travis-ci.org/topcoderinc/serenity-discussions-api)
+[![Build Status](https://travis-ci.org/appirio-tech/lc1-discussion-service.svg?branch=master)](https://travis-ci.org/appirio-tech/lc1-discussion-service)
 
 Wercker:
 
