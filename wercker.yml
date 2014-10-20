@@ -1,12 +1,14 @@
 box: wercker/nodejs
 # Build definition
+services:
+  - wercker/postgresql
 build:
   # The steps that will be executed on build
   steps:
     # A step that executes `npm install` command
     - npm-install
     - npm-test
-    # validate our build is good
-    - grunt:
-        tasks: validate
-        verbose: true
+deploy:
+  steps:
+    - heroku-deploy:
+        run: grunt dbmigrate
