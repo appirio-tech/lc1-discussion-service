@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 
   // @TODO setup test heroku so we don't need this
   if (config.has('app.pgURLWercker')) {
-    databaseUrl = config.get('app.pgURLWercker');
+    databaseUrl = envConfig.get('app.pgURLWercker');
   } else if (envConfig.has('app.pgURL')) {
     databaseUrl = envConfig.get('app.pgURL');
   } else {
