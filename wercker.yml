@@ -5,11 +5,7 @@ build:
   steps:
     # A step that executes `npm install` command
     - npm-install
-    # migrate the database
-    - grunt:
-        tasks: dbmigrate
-        verbose: true
-
+    - npm-test
     # validate our build is good
     - grunt:
         tasks: validate
