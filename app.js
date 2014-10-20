@@ -14,6 +14,10 @@ var cors = require('cors');
 var app = express();
 var swaggerUi = swaggerTools.middleware.v2.swaggerUi;
 
+// Add cors support
+app.use(cors());
+app.options('*', cors());
+
 // uncomment the following if you need to parse incoming form data
 app.use(bodyParser.json());
 
@@ -37,10 +41,6 @@ app.use(a127.middleware());
 app.use(routeHelper.errorHandler);
 // render response data as JSON
 app.use(routeHelper.renderJson);
-
-// Add cors support
-app.options('*', cors());
-app.use(cors());
 
 app.listen(port);
 console.log('app started at '+port);
