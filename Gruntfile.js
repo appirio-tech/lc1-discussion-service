@@ -18,7 +18,10 @@ module.exports = function(grunt) {
   var envConfig = require('config');
 
 
-  if (envConfig.has('app.pgURL')) {
+  // @TODO setup test heroku so we don't need this
+  if (config.has('app.pgURLWercker')) {
+    databaseUrl = config.get('app.pgURLWercker');
+  } else if (envConfig.has('app.pgURL')) {
     databaseUrl = envConfig.get('app.pgURL');
   } else {
     databaseUrl =  'postgres://' + envConfig.get('app.pg.username') +
