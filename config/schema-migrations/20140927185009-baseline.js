@@ -7,7 +7,7 @@ exports.up = function (db, callback) {
     // create discussions table
     db.runSql.bind(db,
        'CREATE TABLE discussions ( ' +
-           '"discussionId" bigserial NOT NULL, ' +
+           'id bigserial NOT NULL, ' +
            '"remoteObjectKey" character varying(255) NOT NULL, ' +
            '"remoteObjectId" bigint NOT NULL, ' +
            '"createdBy" character varying(128), ' +
@@ -15,12 +15,12 @@ exports.up = function (db, callback) {
            '"createdAt" timestamp with time zone NOT NULL, ' +
            '"updatedAt" timestamp with time zone NOT NULL ' +
        ');'),
-    db.runSql.bind(db, 'ALTER TABLE ONLY discussions ADD CONSTRAINT discussions_pkey PRIMARY KEY ("discussionId");'),
+    db.runSql.bind(db, 'ALTER TABLE ONLY discussions ADD CONSTRAINT discussions_pkey PRIMARY KEY (id);'),
 
     // create messages table
     db.runSql.bind(db,
        'CREATE TABLE messages ( ' +
-           '"messageId" bigserial NOT NULL, ' +
+           'id bigserial NOT NULL, ' +
            'content text NOT NULL, ' +
            '"parentMessageId" bigint, ' +
            '"discussionId" bigint NOT NULL, ' +
@@ -29,7 +29,7 @@ exports.up = function (db, callback) {
            '"createdAt" timestamp with time zone NOT NULL, ' +
            '"updatedAt" timestamp with time zone NOT NULL ' +
        ');'),
-    db.runSql.bind(db, 'ALTER TABLE ONLY messages ADD CONSTRAINT messages_pkey PRIMARY KEY ("messageId");')
+    db.runSql.bind(db, 'ALTER TABLE ONLY messages ADD CONSTRAINT messages_pkey PRIMARY KEY (id);')
   ], callback);
 };
 

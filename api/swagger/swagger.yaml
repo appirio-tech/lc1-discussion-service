@@ -161,7 +161,7 @@ paths:
             application/json: |-
               {
                   "messages": [{
-                    "messageId": 8,
+                    "id": 8,
                     "discussionId": 4,
                     "parentMessageId": null,
                     "content": "Best saga ever",
@@ -172,7 +172,7 @@ paths:
                     "messages": []
                   },
                   {
-                    "messageId": 9,
+                    "id": 9,
                     "discussionId": 4,
                     "parentMessageId": null,
                     "content": "My favorite is the first one - The Phantom Menace",
@@ -252,29 +252,14 @@ paths:
         "200":
           description: Success
           schema:
-            properties:
-              success:
-                type: boolean
-                description: True or False if the request was a success
-              status:
-                type: integer
-                description:  The HTTP status code
-              content:
-                $ref: MessageResource
+            $ref: ActionResponse
           examples:
             application/json: |-
               {
-                  "success": true,
-                  "status": 200,
-                  "content": {
-                    "messageId": 9,
-                    "discussionId": 4,
-                    "parentMessageId": null,
-                    "content": "My favorite is the first one - The Phantom Menace",
-                    "createdBy": "_indy",
-                    "updatedBy": "_indy",
-                    "createdAt": "2014-10-08T00:05:36.211Z",
-                    "updatedAt": "2014-10-08T00:12:01.367Z"
+                  "id": 123,
+                  "result": {
+                    "success": true,
+                    "status": 200
                   }
               }
         default:
@@ -467,11 +452,11 @@ definitions:
           uniqueItems: true
   DiscussionResource:
     required:
-      - discussionId
+      - id
       - remoteObjectKey
       - remoteObjectId
     properties:
-      discussionId:
+      id:
         type: integer
         format: int64
       remoteObjectKey:
@@ -497,11 +482,11 @@ definitions:
         description: The handle fo the user
   MessageResource:
     required:
-      - messageId
+      - id
       - discussionId
       - content
     properties:
-      messageId:
+      id:
         type: integer
         format: int64
       discussionId:

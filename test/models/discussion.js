@@ -37,8 +37,8 @@ describe('Model Unit Test', function() {
     describe('Method Save', function() {
       it('should able to save without problems', function(done) {
         Discussion.create(data).success(function(created) {
-          created.discussionId.should.be.a.Number;
-          created.discussionId.should.not.have.length(0);
+          created.id.should.be.a.Number;
+          created.id.should.not.have.length(0);
           created.createdAt.should.not.have.length(0);
           created.updatedAt.should.not.have.length(0);
           created.remoteObjectKey.should.equal(data.remoteObjectKey);
@@ -113,8 +113,8 @@ describe('Model Unit Test', function() {
       });
 
       it('should able to find a discussion with valid id', function(done) {
-        Discussion.find(discussion.discussionId).success(function(retrieved) {
-          retrieved.discussionId.should.equal(discussion.discussionId);
+        Discussion.find(discussion.id).success(function(retrieved) {
+          retrieved.id.should.equal(discussion.id);
           retrieved.remoteObjectKey.should.equal(discussion.remoteObjectKey);
           retrieved.remoteObjectId.should.equal(discussion.remoteObjectId);
           done();
@@ -140,7 +140,7 @@ describe('Model Unit Test', function() {
       it('should able to update a discussion with valid id', function(done) {
         discussion.remoteObjectKey = 'object updated';
         discussion.save().success(function(updated) {
-          updated.discussionId.should.equal(discussion.discussionId);
+          updated.id.should.equal(discussion.id);
           updated.remoteObjectKey.should.equal('object updated');
           done();
         })

@@ -78,7 +78,7 @@ describe('Discussions Controller', function() {
         res.body.content.length.should.be.above(0);
         res.body.content[0].should.have.property('remoteObjectKey');
         res.body.content[0].should.have.property('remoteObjectId');
-        res.body.content[0].should.have.property('messageCount');
+        // res.body.content[0].should.have.property('messageCount');
         done();
       });
     });
@@ -108,7 +108,7 @@ describe('Discussions Controller', function() {
         res.body.status.should.equal(200);
         res.body.content.remoteObjectKey.should.equal(reqData.remoteObjectKey);
         res.body.content.remoteObjectId.should.equal(reqData.remoteObjectId);
-        res.body.content.should.have.property('messageCount');
+        // res.body.content.should.have.property('messageCount');
         done();
       });
     });

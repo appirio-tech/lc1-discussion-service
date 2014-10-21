@@ -38,8 +38,8 @@ describe('Model Unit Test', function() {
     describe('Method Save', function() {
       it('should able to save without problems', function(done) {
         Message.create(data).success(function(created) {
-          created.messageId.should.be.a.Number;
-          created.messageId.should.not.have.length(0);
+          created.id.should.be.a.Number;
+          created.id.should.not.have.length(0);
           created.createdAt.should.not.have.length(0);
           created.updatedAt.should.not.have.length(0);
           created.discussionId.should.equal(data.discussionId);
@@ -114,8 +114,8 @@ describe('Model Unit Test', function() {
       });
 
       it('should able to find a message with valid id', function(done) {
-        Message.find(message.messageId).success(function(retrieved) {
-          retrieved.messageId.should.equal(message.messageId);
+        Message.find(message.id).success(function(retrieved) {
+          retrieved.id.should.equal(message.id);
           retrieved.content.should.equal(message.content);
           retrieved.discussionId.should.equal(message.discussionId);
           done();
@@ -141,7 +141,7 @@ describe('Model Unit Test', function() {
       it('should able to update a message with valid id', function(done) {
         message.content = 'content updated';
         message.save().success(function(updated) {
-          updated.messageId.should.equal(message.messageId);
+          updated.id.should.equal(message.id);
           updated.content.should.equal('content updated');
           done();
         })

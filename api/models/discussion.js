@@ -7,11 +7,11 @@
 module.exports = function(sequelize, DataTypes) {
 
   var Discussion = sequelize.define('Discussion', {
-    discussionId: {
+    id: {
       type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true,
       // bigserial(8bytes) is read as string in sequelize, need to convert to integer
       get: function() {
-        return parseInt(this.getDataValue('discussionId'));
+        return parseInt(this.getDataValue('id'));
       }
     },
 
