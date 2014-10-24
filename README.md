@@ -1,6 +1,6 @@
 ## Build Status
 
-[![Build Status](https://travis-ci.org/appirio-tech/lc1-discussion-service.svg?branch=master)](https://travis-ci.org/appirio-tech/lc1-discussion-service) [![Code Climate](https://codeclimate.com/github/appirio-tech/lc1-discussion-service/badges/gpa.svg)](https://codeclimate.com/github/appirio-tech/lc1-discussion-service) [![Code Climate](https://codeclimate.com/github/appirio-tech/lc1-discussion-service/badges/gpa.svg)](https://codeclimate.com/github/appirio-tech/lc1-discussion-service)
+[![Build Status](https://travis-ci.org/appirio-tech/lc1-discussion-service.svg?branch=master)](https://travis-ci.org/appirio-tech/lc1-discussion-service) [![Code Climate](https://codeclimate.com/github/appirio-tech/lc1-discussion-service/badges/gpa.svg)](https://codeclimate.com/github/appirio-tech/lc1-discussion-service) [![Dependency Status](https://gemnasium.com/appirio-tech/lc1-discussion-service.svg)](https://gemnasium.com/appirio-tech/lc1-discussion-service)
 
 Wercker:
 
