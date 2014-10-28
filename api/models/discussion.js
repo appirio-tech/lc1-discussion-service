@@ -26,7 +26,19 @@ module.exports = function(sequelize, DataTypes) {
     createdBy: DataTypes.STRING(128),
     updatedBy: DataTypes.STRING(128)
   }, {
-    tableName: 'discussions'
+    tableName: 'discussions',
+    associate: function(models) {
+      Discussion.hasMany(models.Message, {as: 'Message', foreignKey: 'discussionId', through: null});
+    },
+    classMethods: {
+      findChildren: function(Model, value, callback){
+        Model.findAll({where: {discussionId: value}}).success(function(children){
+          callback(null, children);
+        }).error(function(err){
+          callback(err);
+        });
+      }
+    }
   });
 
   return Discussion;

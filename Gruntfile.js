@@ -153,7 +153,7 @@ module.exports = function(grunt) {
   grunt.registerTask('cleandb', 'Clean db and re-apply all migrations', function () {
     var fs = require('fs');
     var files = fs.readdirSync('./config/schema-migrations');
-    for (var i = 0; i < files.length; i++) {
+    for (var i = 0; i < files.length; i+=1) {
       grunt.task.run('migrate:down');
     }
     grunt.task.run('migrate:up');

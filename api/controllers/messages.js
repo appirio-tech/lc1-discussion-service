@@ -5,6 +5,7 @@ var datasource = require('./../../datasource').getDataSource();
 var Discussion = datasource.Discussion;
 var Message = datasource.Message;
 var controllerHelper = require('./../../lib/controllerHelper');
+var expandHelper = require('./../../lib/expandHelper');
 var async = require('async');
 
 
@@ -91,8 +92,9 @@ function getMessages(req, res, next) {
         },
         content: messages
       };
-    } 
-    next();
+    }
+    //expand the queried entity
+    expandHelper.expandObject(Message, req, next);
   });
 
 }
