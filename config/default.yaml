@@ -1,11 +1,12 @@
 app:
+  pgURL: 'postgres://postgres@localhost:5432/travis_ci_test'
   pg:
-    database: lc1discusstionservice
-    username: postgres
-    password: postgres
-    host: mrpeach.me
-    dialect: postgres
-    port: 5432
+    database:
+    username:
+    password:
+    host:
+    dialect:
+    port:
   port: 10010
   query:
     pageSize: 20
