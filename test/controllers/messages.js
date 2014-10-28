@@ -18,6 +18,7 @@ var Message = db.Message;
 
 
 describe('Messages Controller', function() {
+  this.timeout(15000);
   var url = 'http://localhost:'+config.app.port;
   var discussion;
   var messageId;
@@ -177,6 +178,82 @@ describe('Messages Controller', function() {
         res.body.content.length.should.be.above(0);
         done();
       });
+    });
+
+    it('should able to get child messages in a messages list by expand parameter', function(done) {
+      // send request
+      request(url)
+        .get('/discussions/'+discussion.id+'/messages?expand[]=messages')
+        .end(function(err, res) {
+          should.not.exist(err);
+          // verify response
+          res.status.should.equal(200);
+          res.body.success.should.be.true;
+          res.body.status.should.equal(200);
+          res.body.should.have.property('metadata');
+          res.body.metadata.totalCount.should.be.above(0);
+          res.body.should.have.property('content');
+          res.body.content.length.should.be.above(0);
+          res.body.content[0].should.have.property('messages');
+          done();
+        });
+    });
+
+    it('should able to get child messages and nested messages in a messages list by expand parameter', function(done) {
+      // send request
+      request(url)
+        .get('/discussions/'+discussion.id+'/messages?expand[]=messages.all')
+        .end(function(err, res) {
+          should.not.exist(err);
+          // verify response
+          res.status.should.equal(200);
+          res.body.success.should.be.true;
+          res.body.status.should.equal(200);
+          res.body.should.have.property('metadata');
+          res.body.metadata.totalCount.should.be.above(0);
+          res.body.should.have.property('content');
+          res.body.content.length.should.be.above(0);
+          res.body.content[0].should.have.property('messages');
+          res.body.content[0].should.have.property('messages');
+          done();
+        });
+    });
+
+    it('should able to get child messages discussion and parentMessage in a message by expand parameter', function(done) {
+      // send request
+      request(url)
+        .get('/discussions/'+discussion.id+'/messages/' + messageId + '?expand[]=messages&&expand[]=messages.discussion&&expand[]=messages.parentMessage')
+        .end(function(err, res) {
+          should.not.exist(err);
+          // verify response
+          res.status.should.equal(200);
+          res.body.success.should.be.true;
+          res.body.status.should.equal(200);
+          res.body.should.have.property('content');
+          res.body.content.should.have.property('messages');
+          res.body.content.should.have.property('discussion');
+          res.body.content.should.have.property('parentMessage');
+          done();
+        });
+    });
+
+    it('should able to get child messages in a child message list by expand parameter', function(done) {
+      // send request
+      request(url)
+        .get('/discussions/'+discussion.id+'/messages/' + messageId + '/messages?expand[]=messages')
+        .end(function(err, res) {
+          should.not.exist(err);
+          // verify response
+          res.status.should.equal(200);
+          res.body.success.should.be.true;
+          res.body.status.should.equal(200);
+          res.body.should.have.property('metadata');
+          res.body.metadata.totalCount.should.be.above(0);
+          res.body.should.have.property('content');
+          res.body.content.length.should.be.above(0);
+          res.body.content[0].should.have.property('messages');
+          done();
+        });
     });
 
     it('should able to delete the existing message', function(done) {

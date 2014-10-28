@@ -12,6 +12,7 @@ var bodyParser = require('body-parser');
 var config = require('config');
 var datasource = require('./datasource');
 var routeHelper = require('./lib/routeHelper');
+var expandHelper = require('./lib/expandHelper');
 var swaggerTools = require('swagger-tools');
 var yaml = require('js-yaml');
 var fs = require('fs');
@@ -40,6 +41,9 @@ if (config.has('app.port')) {
 } else {
   port = 10010;
 }
+
+// expand parameter parser handler
+app.use(expandHelper.parseExpandParam);
 
 // a127 middlewares
 app.use(a127.middleware());

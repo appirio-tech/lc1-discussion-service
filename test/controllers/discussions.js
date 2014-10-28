@@ -125,6 +125,30 @@ describe('Discussions Controller', function() {
       });
     });
 
+    it('should able to get message arraies by expand messages', function(done){
+      request(url)
+      .get('/discussions?expand[]=messages')
+      .end(function(err, res){
+        res.status.should.equal(200);
+        res.body.success.should.be.true;
+        res.body.status.should.equal(200);
+        res.body.content[0].should.have.property('messages');
+        done();
+      });
+    });
+
+    it('should able to get a message array by expand messages', function(done){
+      request(url)
+        .get('/discussions/'+ discussionId +'?expand[]=messages')
+        .end(function(err, res){
+          res.status.should.equal(200);
+          res.body.success.should.be.true;
+          res.body.status.should.equal(200);
+          res.body.content.should.have.property('messages');
+          done();
+        });
+    });
+
   });
 
   after(function(done) {
