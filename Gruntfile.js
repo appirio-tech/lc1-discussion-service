@@ -87,6 +87,20 @@ module.exports = function(grunt) {
         verbose: true   // tell me more stuff
       }
     },
+    'swagger-js-codegen': {
+      options: {
+        apis: [
+          {
+            swagger: 'http://lc1-discussion-service.herokuapp.com/api-docs',  // The location of the swagger file
+            moduleName: 'Discussion' // The name of the file and class
+          }
+        ],
+        dest: 'lib' // Where the file should be generated.
+      },
+      dist: {
+
+      }
+    },
     env: {
       test: {
         NODE_ENV: 'test',
@@ -160,4 +174,6 @@ module.exports = function(grunt) {
       grunt.task.run('migrate:up');
     }
   });
+
+  grunt.registerTask('updateClient', ['swagger-js-codegen']);
 };

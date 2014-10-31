@@ -44,7 +44,8 @@
     "mocha": "1.21.4",
     "jshint": "2.5.5",
     "supertest": "^0.13.0",
-    "grunt-mocha-test": "^0.12.0"
+    "grunt-mocha-test": "^0.12.0",
+    "grunt-swagger-js-codegen": ">0.2.9"
   },
   "scripts": {
     "start": "grunt",
