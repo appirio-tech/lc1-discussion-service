@@ -4,12 +4,12 @@ module.exports = function(grunt) {
   var databaseUrl;
 
   var paths = {
-    js: ['*.js', 'api/**/*.js', 'lib/*.js', '!test/coverage/**', '!bower_components/**']
+    js: ['*.js', 'api/**/*.js', 'lib/*.js', '!test/coverage/**', '!bower_components/**', '!newrelic.js']
   };
 
   var re;
   var swagger;
-  var swagger_file = __dirname + '/api/swagger/swagger.yaml';
+  var swaggerFile = __dirname + '/api/swagger/swagger.yaml';
 
   if (process.env.NODE_ENV !== 'production') {
     require('time-grunt')(grunt);
@@ -87,6 +87,20 @@ module.exports = function(grunt) {
         verbose: true   // tell me more stuff
       }
     },
+    'swagger-js-codegen': {
+      options: {
+        apis: [
+          {
+            swagger: 'http://lc1-discussion-service.herokuapp.com/api-docs',  // The location of the swagger file
+            moduleName: 'Discussion' // The name of the file and class
+          }
+        ],
+        dest: 'lib' // Where the file should be generated.
+      },
+      dist: {
+
+      }
+    },
     env: {
       test: {
         NODE_ENV: 'test',
@@ -139,8 +153,8 @@ module.exports = function(grunt) {
       swagger.validator.set('log', 'true');
 
       // Run the validator on file at swagger_file
-      console.log('YAML Test for file: ' + swagger_file + '\n');
-      re = swagger.validator.Validate(swagger_file, undefined, {version: '2.0'});
+      console.log('YAML Test for file: ' + swaggerFile + '\n');
+      re = swagger.validator.Validate(swaggerFile, undefined, {version: '2.0'});
 
     } catch (e) {
       re = e.message;
@@ -153,9 +167,13 @@ module.exports = function(grunt) {
   grunt.registerTask('cleandb', 'Clean db and re-apply all migrations', function () {
     var fs = require('fs');
     var files = fs.readdirSync('./config/schema-migrations');
-    for (var i = 0; i < files.length; i+=1) {
-      grunt.task.run('migrate:down');
+    if (files) {
+      files.forEach(function() {
+        grunt.task.run('migrate:down');
+      });
+      grunt.task.run('migrate:up');
     }
-    grunt.task.run('migrate:up');
   });
+
+  grunt.registerTask('updateClient', ['swagger-js-codegen']);
 };
