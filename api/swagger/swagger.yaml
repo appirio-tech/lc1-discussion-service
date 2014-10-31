@@ -1,10 +1,10 @@
-swagger: 2.0
+swagger: "2.0"
 info:
-  version: "0.0.1"
+  version: "0.1.0"
   title: Serenity Discussion API
 # during dev, should point to your local machine
 host: lc1-discussion-service.herokuapp.com
-# 
+#
 schemes:
   # tip: remove http to make production-grade
   - http
@@ -88,6 +88,10 @@ paths:
           required: true
           type: integer
           format: int64
+        - name: expand
+          in: query
+          type: string
+          description: expand parameters to expand the response data
       responses:
         "200":
           description: Return a Discussion Resource
@@ -208,6 +212,10 @@ paths:
           required: true
           type: integer
           format: int64
+        - name: expand
+          in: query
+          type: string
+          description: expand parameters to expand the response data
       responses:
         "200":
           description: A successufly response
@@ -480,6 +488,13 @@ definitions:
       updatedBy:
         type: string
         description: The handle fo the user
+      messages:
+        type: array
+        description: The first level child messages.
+        items:
+          $ref: MessageResource
+          minItems: 0
+          uniqueItems: true
   MessageResource:
     required:
       - id
@@ -514,6 +529,19 @@ definitions:
       updatedBy:
         type: string
         description: The handle fo the user
+      messages:
+        type: array
+        description: The first level child messages
+        items:
+          $ref: MessageResource
+          minItems: 0
+          uniqueItems: true
+      discussion:
+        $ref: DiscussionResource
+        description: The discussion object which the message belongs to
+      parentMessage:
+        $ref: MessageResource
+        description: The parent message which the message belongs to
   DiscussionBody:
     required:
       - remoteObjectKey
