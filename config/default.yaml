@@ -11,3 +11,6 @@ app:
   query:
     pageSize: 20
     onlyRootMessages: false
+  dbOptions:
+    paranoid: true
+    timestamps: true
