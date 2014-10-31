@@ -488,6 +488,13 @@ definitions:
       updatedBy:
         type: string
         description: The handle fo the user
+      messages:
+        type: array
+        description: The first level child messages.
+        items:
+          $ref: MessageResource
+          minItems: 0
+          uniqueItems: true
   MessageResource:
     required:
       - id
@@ -522,6 +529,19 @@ definitions:
       updatedBy:
         type: string
         description: The handle fo the user
+      messages:
+        type: array
+        description: The first level child messages
+        items:
+          $ref: MessageResource
+          minItems: 0
+          uniqueItems: true
+      discussion:
+        $ref: DiscussionResource
+        description: The discussion object which the message belongs to
+      parentMessage:
+        $ref: MessageResource
+        description: The parent message which the message belongs to
   DiscussionBody:
     required:
       - remoteObjectKey
