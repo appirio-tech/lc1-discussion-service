@@ -26,7 +26,10 @@ module.exports = function(sequelize, DataTypes) {
     createdBy: DataTypes.STRING(128),
     updatedBy: DataTypes.STRING(128)
   }, {
-    tableName: 'discussions'
+    tableName: 'discussions',
+    associate : function(models) {
+      Discussion.hasMany(models.Message, {foreignKey: 'discussionId'});
+    }
   });
 
   return Discussion;

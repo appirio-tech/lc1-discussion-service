@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  version: "0.0.1"
+  version: "0.1.0"
   title: Serenity Discussion API
 # during dev, should point to your local machine
 host: lc1-discussion-service.herokuapp.com
@@ -88,6 +88,10 @@ paths:
           required: true
           type: integer
           format: int64
+        - name: expand
+          in: query
+          type: string
+          description: expand parameters to expand the response data
       responses:
         "200":
           description: Return a Discussion Resource
@@ -208,6 +212,10 @@ paths:
           required: true
           type: integer
           format: int64
+        - name: expand
+          in: query
+          type: string
+          description: expand parameters to expand the response data
       responses:
         "200":
           description: A successufly response

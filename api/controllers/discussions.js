@@ -13,5 +13,4 @@ module.exports = {
   create: discussionController.create,
   getDiscussions: discussionController.all,
   findById: discussionController.get
-
 };
