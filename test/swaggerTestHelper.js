@@ -4,7 +4,7 @@ var parser = require("swagger-parser");
 var async = require("async");
 var assert = require("assert");
 var supertest = require("supertest");
-var _ = require('underscore');
+var _ = require('lodash');
 
 var _validate = function (route, obj, expectedResponseDefinition, definitions, currentPath, currentObj) {
   if (!currentPath) {

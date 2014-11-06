@@ -37,7 +37,6 @@
     "pg": "^3.4.1",
     "sequelize": "^1.7.10",
     "swagger-tools": ">=0.6.11",
-    "underscore": "",
     "time-grunt": "^0.3.1"
   },
   "devDependencies": {
