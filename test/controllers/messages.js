@@ -18,7 +18,6 @@ var Message = db.Message;
 
 
 describe('Messages Controller', function() {
-  this.timeout(15000);
   var url = 'http://localhost:'+config.app.port;
   var discussion;
   var messageId;
@@ -113,27 +112,6 @@ describe('Messages Controller', function() {
       });
     });
 
-    it('should able to get the partial response for all messages in a discussion using fields parameter', function(done) {
-      var replyData = {content: 'reply content'};
-      // send request
-      request(url)
-        .get('/discussions/'+discussion.id+'/messages?fields=content')
-        .end(function(err, res) {
-          should.not.exist(err);
-          // verify response
-          res.status.should.equal(200);
-          res.body.success.should.be.true;
-          res.body.status.should.equal(200);
-          res.body.should.have.property('metadata');
-          res.body.metadata.totalCount.should.be.above(0);
-          res.body.should.have.property('content');
-          res.body.content.length.should.be.above(0);
-          res.body.content[0].should.have.property('content');
-          res.body.content[0].should.not.have.property('id');
-          done();
-        });
-    });
-
     it('should able to get the existing message', function(done) {
       // send request
       request(url)
@@ -199,47 +177,6 @@ describe('Messages Controller', function() {
         res.body.content.length.should.be.above(0);
         done();
       });
-    });
-
-    it('should able to get nesting messages in a message using fields parameter', function(done) {
-      // send request
-      request(url)
-        .get('/discussions/'+discussion.id+'/messages/'+messageId+'?fields=content,messages(messages,parentMessage)')
-        .end(function(err, res) {
-          should.not.exist(err);
-          // verify response
-          res.status.should.equal(200);
-          res.body.success.should.be.true;
-          res.body.status.should.equal(200);
-          res.body.should.have.property('content');
-          res.body.content.should.have.property('messages');
-          res.body.content.should.not.have.property('id');
-          res.body.content.should.have.property('content');
-          res.body.content.messages.length.should.be.above(0);
-          res.body.content.messages[0].parentMessage.id.should.equal(messageId);
-          done();
-        });
-    });
-
-    it('should able to get partial response of the child messages in a message using fields parameter', function(done) {
-      var replyData = {content: 'reply content'};
-      // send request
-      request(url)
-        .get('/discussions/'+discussion.id+'/messages/'+messageId+'/messages?fields=content')
-        .end(function(err, res) {
-          should.not.exist(err);
-          // verify response
-          res.status.should.equal(200);
-          res.body.success.should.be.true;
-          res.body.status.should.equal(200);
-          res.body.should.have.property('metadata');
-          res.body.metadata.totalCount.should.be.above(0);
-          res.body.should.have.property('content');
-          res.body.content.length.should.be.above(0);
-          res.body.content[0].should.have.property('content');
-          res.body.content[0].should.not.have.property('id');
-          done();
-        });
     });
 
     it('should able to delete the existing message', function(done) {
