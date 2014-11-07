@@ -18,6 +18,7 @@ var Message = db.Message;
  * Test Suites
  */
 describe('API', function() {
+  this.timeout(15000);
 
   var url = 'http://localhost:' + config.app.port;
   var replacementMap;

@@ -16,6 +16,7 @@ var swaggerTools = require('swagger-tools');
 var yaml = require('js-yaml');
 var fs = require('fs');
 var cors = require('cors');
+var partialResponseHelper = require('./lib/partialResponseHelper');
 
 var app = express();
 var swaggerUi = swaggerTools.middleware.v2.swaggerUi;
@@ -40,6 +41,8 @@ if (config.has('app.port')) {
 } else {
   port = 10010;
 }
+
+app.use(partialResponseHelper.parseFields);
 
 // a127 middlewares
 app.use(a127.middleware());
