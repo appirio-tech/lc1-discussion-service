@@ -201,6 +201,23 @@ describe('Messages Controller', function() {
       });
     });
 
+    it('should able to get first level messages in the dicsussion', function(done) {
+      request(url)
+        .get('/discussions/'+discussion.id+'/messages')
+        .end(function(err, res) {
+          should.not.exist(err);
+          // verify response
+          res.status.should.equal(200);
+          res.body.success.should.be.true;
+          res.body.status.should.equal(200);
+          res.body.should.have.property('metadata');
+          res.body.metadata.totalCount.should.be.above(0);
+          res.body.should.have.property('content');
+          res.body.content.length.should.equal(1);
+          done();
+        });
+    });
+
     it('should able to get nesting messages in a message using fields parameter', function(done) {
       // send request
       request(url)

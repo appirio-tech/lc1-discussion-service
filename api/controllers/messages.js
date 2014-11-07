@@ -44,6 +44,59 @@ function reply(req, res, next) {
 }
 
 /**
+ * Get the first level messages in a discussion
+ */
+function getMesssagesInDiscussion(req, res, next) {
+
+  async.waterfall([
+    function(callback) {
+      var filters = {
+        where: {
+          discussionId: req.swagger.params.discussionId.value,
+          parentMessageId: null
+        }
+      };
+      controllerHelper.findEntities(Message, filters, req, callback);
+    },
+    function(count, messages, callback) {
+      // get the number of child messages
+      async.each(messages, function(message, cb) {
+        // filter to get the number of child messages in a message
+        var messageFilters = {
+          where: {
+            discussionId: message.discussionId,
+            parentMessageId: null
+          }
+        };
+        Message.count(messageFilters).success(function(count) {
+          message.dataValues.messageCount = count;
+          cb();
+        })
+          .error(function(err) {
+            cb(err);
+          });
+      }, function(err) {
+        callback(err, count, messages);
+      });
+    }
+  ], function(err, totalCount, messages) {
+    if (!err) {
+      req.data = {
+        success: true,
+        status: 200,
+        metadata: {
+          totalCount: totalCount
+        },
+        content: messages
+      };
+    }
+    partialResponseHelper.reduceFieldsAndExpandObject(Message, req, next);
+  });
+
+}
+
+
+/**
  * Get the child messages in a message.
  * @param req the request
  * @param res the response
@@ -101,7 +154,7 @@ function getMessages(req, res, next) {
 
 module.exports = {
   create: messageController.create,
-  getAllbyDiscussion: messageController.all,
+  getAllbyDiscussion: getMesssagesInDiscussion,
   findById: messageController.get,
   update: messageController.update,
   delete: messageController.delete,
