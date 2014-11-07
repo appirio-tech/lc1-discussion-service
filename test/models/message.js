@@ -23,6 +23,7 @@ var message;
  * Test Suites
  */
 describe('Model Unit Test', function() {
+  this.timeout(15000);
   describe('Model Message:', function() {
     beforeEach(function(done) {
       data = {
