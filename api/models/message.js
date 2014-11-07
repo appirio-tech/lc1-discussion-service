@@ -33,8 +33,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'messages',
     associate: function(models) {
-      Message.belongsTo(models.Discussion, {foreignKey: 'discussionId'});
-      Message.belongsTo(models.Message, {foreignKey: 'parentMessageId'});
+      Message.belongsTo(models.Discussion);
       Message.hasMany(models.Message, {foreignKey: 'parentMessageId'});
     }
   });

@@ -6,7 +6,6 @@ var Discussion = datasource.Discussion;
 var Message = datasource.Message;
 var controllerHelper = require('./../../lib/controllerHelper');
 var async = require('async');
-var partialResponseHelper = require('./../../lib/partialResponseHelper');
 
 
 // build controller for message resource
@@ -92,8 +91,8 @@ function getMessages(req, res, next) {
         },
         content: messages
       };
-    }
-    partialResponseHelper.reduceFieldsAndExpandObject(Message, req, next);
+    } 
+    next();
   });
 
 }
