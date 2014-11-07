@@ -17,6 +17,7 @@ var Discussion = db.Discussion;
 
 
 describe('Discussions Controller', function() {
+  this.timeout(15000);
   var url = 'http://localhost:'+config.app.port;
   var discussionId;
   var reqData;
@@ -111,6 +112,20 @@ describe('Discussions Controller', function() {
         // res.body.content.should.have.property('messageCount');
         done();
       });
+    });
+
+    it('should able to get partial response of the existing discussion', function(done) {
+      // send request
+      request(url)
+        .get('/discussions/'+discussionId+'?fields=id')
+        .end(function(err, res) {
+          res.status.should.equal(200);
+          res.body.success.should.be.true;
+          res.body.status.should.equal(200);
+          res.body.content.should.not.have.property('remoteObjectKey');
+          res.body.content.should.have.property('id');
+          done();
+        });
     });
 
     it('should fail to get non-existing discussion', function(done) {

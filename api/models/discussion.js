@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'discussions',
     associate : function(models) {
-      Discussion.hasMany(models.Message, {foreignKey: 'discussionId'});
+      Discussion.hasMany(models.Message);
     }
   });
 
