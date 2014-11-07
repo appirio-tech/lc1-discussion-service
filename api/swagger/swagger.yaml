@@ -65,6 +65,10 @@ paths:
           in: query
           type: string
           description: field name to sort {asc [nulls {first | last} ] | desc  [nulls {first | last} }
+        - name: fields
+          in: query
+          type: string
+          description: fields parameters to get partial response data
       responses:
         "200":
           description: Return a Discussion Resource
@@ -88,10 +92,10 @@ paths:
           required: true
           type: integer
           format: int64
-        - name: expand
+        - name: fields
           in: query
           type: string
-          description: expand parameters to expand the response data
+          description: fields parameters to get partial response data
       responses:
         "200":
           description: Return a Discussion Resource
@@ -156,6 +160,10 @@ paths:
           required: true
           type: integer
           format: int64
+        - name: fields
+          in: query
+          type: string
+          description: fields parameters to get partial response data
       responses:
         "200":
           description: Success
@@ -212,10 +220,10 @@ paths:
           required: true
           type: integer
           format: int64
-        - name: expand
+        - name: fields
           in: query
           type: string
-          description: expand parameters to expand the response data
+          description: fields parameters to get partial response data
       responses:
         "200":
           description: A successufly response
@@ -371,6 +379,10 @@ paths:
           required: true
           type: integer
           format: int64
+        - name: fields
+          in: query
+          type: string
+          description: fields parameters to get partial response data
       responses:
         "200":
           description: Successful reply
