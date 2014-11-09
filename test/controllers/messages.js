@@ -214,6 +214,8 @@ describe('Messages Controller', function() {
           res.body.metadata.totalCount.should.be.above(0);
           res.body.should.have.property('content');
           res.body.content.length.should.equal(1);
+          res.body.content[0].should.have.property('parentMessageId');
+          (res.body.content[0].parentMessageId === null).should.be.true;
           done();
         });
     });
