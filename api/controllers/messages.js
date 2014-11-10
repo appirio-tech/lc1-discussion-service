@@ -56,31 +56,10 @@ function getMessages(req, res, next) {
       var filters = {
         where: {
           discussionId: req.swagger.params.discussionId.value,
-          id: req.swagger.params.messageId.value
+          parentMessageId: req.swagger.params.messageId.value
         }
       };
       controllerHelper.findEntities(Message, filters, req, callback);
-    },
-    function(count, messages, callback) {
-      // get the number of child messages
-      async.each(messages, function(message, cb) {
-        // filter to get the number of child messages in a message
-        var messageFilters = {
-          where: {
-            discussionId: message.discussionId,
-            parentMessageId: message.messageId
-          }
-        };
-        Message.count(messageFilters).success(function(count) {
-          message.dataValues.messageCount = count;
-          cb();
-        })
-        .error(function(err) {
-          cb(err);
-        });
-      }, function(err) {
-        callback(err, count, messages);
-      });
     }
   ], function(err, totalCount, messages) {
     if (!err) {
