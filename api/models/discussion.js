@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
       get: function() {
         return parseInt(this.getDataValue('updatedBy'));
       }
-    },
+    }
   }, {
     tableName: 'discussions',
     associate : function(models) {
