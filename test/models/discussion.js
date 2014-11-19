@@ -29,8 +29,8 @@ describe('Model Unit Test', function() {
       data = {
         remoteObjectKey: 'challenge',
         remoteObjectId: 12345,
-        createdBy: '_indy',
-        updatedBy: '_indy'
+        createdBy: '1',
+        updatedBy: '1'
       };
       done();
     });
@@ -175,7 +175,7 @@ describe('Model Unit Test', function() {
       } else {
         done();
       }
-      
+
     });
   });
 });

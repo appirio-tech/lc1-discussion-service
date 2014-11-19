@@ -30,8 +30,8 @@ describe('Model Unit Test', function() {
         content: 'message content',
         discussionId: 12345,
         parentMessageId: 67890,
-        createdBy: '_indy',
-        updatedBy: '_indy'
+        createdBy: '1',
+        updatedBy: '1'
       };
       done();
     });
@@ -176,7 +176,7 @@ describe('Model Unit Test', function() {
       } else {
         done();
       }
-      
+
     });
   });
 });

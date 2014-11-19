@@ -10,8 +10,8 @@ exports.up = function (db, callback) {
            'id bigserial NOT NULL, ' +
            '"remoteObjectKey" character varying(255) NOT NULL, ' +
            '"remoteObjectId" bigint NOT NULL, ' +
-           '"createdBy" character varying(128), ' +
-           '"updatedBy" character varying(128), ' +
+           '"createdBy" bigint, ' +
+           '"updatedBy" bigint, ' +
            '"createdAt" timestamp with time zone NOT NULL, ' +
            '"updatedAt" timestamp with time zone NOT NULL ' +
        ');'),
@@ -24,8 +24,8 @@ exports.up = function (db, callback) {
            'content text NOT NULL, ' +
            '"parentMessageId" bigint, ' +
            '"discussionId" bigint NOT NULL, ' +
-           '"createdBy" character varying(128), ' +
-           '"updatedBy" character varying(128), ' +
+           '"createdBy" bigint, ' +
+           '"updatedBy" bigint, ' +
            '"createdAt" timestamp with time zone NOT NULL, ' +
            '"updatedAt" timestamp with time zone NOT NULL ' +
        ');'),

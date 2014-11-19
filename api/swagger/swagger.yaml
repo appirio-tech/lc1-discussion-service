@@ -177,8 +177,8 @@ paths:
                     "discussionId": 4,
                     "parentMessageId": null,
                     "content": "Best saga ever",
-                    "createdBy": "_indy",
-                    "updatedBy": "_indy",
+                    "createdBy": "1",
+                    "updatedBy": "1",
                     "createdAt": "2014-10-07T23:26:38.669Z",
                     "updatedAt": "2014-10-07T23:26:38.669Z",
                     "messages": []
@@ -188,8 +188,8 @@ paths:
                     "discussionId": 4,
                     "parentMessageId": null,
                     "content": "My favorite is the first one - The Phantom Menace",
-                    "createdBy": "_indy",
-                    "updatedBy": "_indy",
+                    "createdBy": "1",
+                    "updatedBy": "1",
                     "createdAt": "2014-10-08T00:05:36.211Z",
                     "updatedAt": "2014-10-08T00:12:01.367Z",
                     "messages": []
@@ -495,11 +495,11 @@ definitions:
         type: string
         format: date-time
       createdBy:
-        type: string
-        description: The handle fo the user
+        type: number
+        description: The id of the user who created the row
       updatedBy:
-        type: string
-        description: The handle fo the user
+        type: number
+        description: The id of the user last updated the row
       messages:
         type: array
         description: The first level child messages.
@@ -536,11 +536,11 @@ definitions:
         type: string
         format: date-time
       createdBy:
-        type: string
-        description: The handle fo the user
+        type: number
+        description: The id of the user who created the row
       updatedBy:
-        type: string
-        description: The handle fo the user
+        type: number
+        description: The id of the user last updated the row
       messages:
         type: array
         description: The first level child messages
