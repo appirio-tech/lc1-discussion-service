@@ -23,13 +23,23 @@ module.exports = function(sequelize, DataTypes) {
     },
     content: {type: DataTypes.STRING, allowNull: false},
     parentMessageId: {
-      type: DataTypes.BIGINT, 
+      type: DataTypes.BIGINT,
       get: function() {
         return parseInt(this.getDataValue('parentMessageId'));
       }
     },
-    createdBy: DataTypes.STRING(128),
-    updatedBy: DataTypes.STRING(128)
+    createdBy: {
+      type: DataTypes.BIGINT,
+      get: function() {
+        return parseInt(this.getDataValue('createdBy'));
+      }
+    },
+    updatedBy: {
+      type: DataTypes.BIGINT,
+      get: function() {
+        return parseInt(this.getDataValue('updatedBy'));
+      }
+    }
   }, {
     tableName: 'messages',
     associate: function(models) {
