@@ -495,10 +495,12 @@ definitions:
         type: string
         format: date-time
       createdBy:
-        type: number
+        type: integer
+        format: int64
         description: The id of the user who created the row
       updatedBy:
-        type: number
+        type: integer
+        format: int64
         description: The id of the user last updated the row
       messages:
         type: array
@@ -536,10 +538,12 @@ definitions:
         type: string
         format: date-time
       createdBy:
-        type: number
+        type: integer
+        format: int64
         description: The id of the user who created the row
       updatedBy:
-        type: number
+        type: integer
+        format: int64
         description: The id of the user last updated the row
       messages:
         type: array
