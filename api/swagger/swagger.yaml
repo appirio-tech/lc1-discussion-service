@@ -350,6 +350,11 @@ paths:
           required: true
           schema:
             $ref: MessageBody
+        - name: useCurrentUserAsAuthor
+          in: query
+          description: Uses the current authenticated user as the author
+          required: false
+          type: boolean
       responses:
         "200":
           description: Successful reply
@@ -506,10 +511,6 @@ definitions:
         type: integer
         format: int64
         description: The Id of the author.
-      authorHandle:
-        type: string
-        description: The handle of the author.
-        maxLength: 128
       messages:
         type: array
         description: The first level child messages.
@@ -557,10 +558,6 @@ definitions:
         type: integer
         format: int64
         description: The Id of the author.
-      authorHandle:
-        type: string
-        description: The handle of the author.
-        maxLength: 128
       messages:
         type: array
         description: The first level child messages

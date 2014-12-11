@@ -45,8 +45,7 @@ module.exports = function(sequelize, DataTypes) {
       get: function() {
           return parseInt(this.getDataValue('authorId'));
       }
-    },
-    authorHandle: DataTypes.STRING(128)
+    }
   }, {
     tableName: 'messages',
     associate: function(models) {

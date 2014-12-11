@@ -29,7 +29,7 @@
     "grunt-db-migrate": "0.2.0",
     "grunt-env": "^0.4.1",
     "grunt-nodemon": "0.2.1",
-    "grunt-swagger-tools": "^0.1.0",
+    "appirio-grunt-swagger-tools": "^0.1.0",
     "js-yaml": "",
     "newrelic": "^1.12.1",
     "load-grunt-tasks": "^0.4.0",
