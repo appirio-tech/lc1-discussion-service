@@ -13,3 +13,28 @@ app:
 auth0:
   client: ''
   secret: ''
+auth:
+  enabled: false
+  safeList:
+    enabled: false
+    users:
+      - dayal
+      - rockabilly
+      - kbowerma
+      - _indy
+      - appiriowes
+  paths:
+    - httpVerb: DELETE
+      path: '*'
+    - httpVerb: PUT
+      path: '*'
+    - httpVerb: POST
+      path: '*'
+    - httpVerb: GET
+      path: '/challenges/:challengeId/files/:fileId/download'
+    - httpVerb: GET
+      path: '/challenges/:challengeId/files/:fileId/upload'
+    - httpVerb: GET
+      path: '/challenges/:challengeId/submissions/:submissionId/files/:fileId/upload'
+    - httpVerb: GET
+      path: '/challenges/:challengeId/submissions/:submissionId/files/:fileId/download'

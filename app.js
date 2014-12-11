@@ -18,6 +18,7 @@ var fs = require('fs');
 var cors = require('cors');
 var partialResponseHelper = require('./lib/partialResponseHelper');
 var request = require('request');
+var auth = require('./lib/tc-auth');
 
 var app = express();
 
@@ -28,38 +29,8 @@ app.options('*', cors());
 // uncomment the following if you need to parse incoming form data
 app.use(bodyParser.json());
 
-// Add tc user
-// @TODO Move this into it's own module
-/* jshint camelcase:false */
-function getTcUser(req, res, next) {
-  if (req.user) {
-    request(config.get('app.tcApi') + '/user/tcid/' + req.user.sub, function (error, response, body) {
-      if (!error && response.statusCode === 200) {
-        body = JSON.parse(body);
-
-        req.user.tcUser = {
-          id: body.uid,
-          name: req.user.name,
-          handle: body.handle,
-          picture: req.user.picture
-        };
-        next();
-      }
-      else {
-        //TODO: handle error response from tc api
-        res.status(503).send('TC API Unavailable');
-      }
-    });
-  } else {
-    next();
-  }
-}
-
-if (!config.has('app.disableAuth') || !config.get('app.disableAuth')) {
-  var tcAuth = require('./lib/tc-auth')(config.get('auth0'));
-  app.use(tcAuth);
-  app.use(getTcUser);
-}
+// central point for all authentication
+auth.auth(app);
 
 var swaggerUi = swaggerTools.middleware.v2.swaggerUi;
 
