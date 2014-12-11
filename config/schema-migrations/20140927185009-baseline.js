@@ -13,7 +13,9 @@ exports.up = function (db, callback) {
            '"createdBy" bigint, ' +
            '"updatedBy" bigint, ' +
            '"createdAt" timestamp with time zone NOT NULL, ' +
-           '"updatedAt" timestamp with time zone NOT NULL ' +
+           '"updatedAt" timestamp with time zone NOT NULL, ' +
+           '"authorId" bigint, ' +
+           '"authorHandle" character varying(128) ' +
        ');'),
     db.runSql.bind(db, 'ALTER TABLE ONLY discussions ADD CONSTRAINT discussions_pkey PRIMARY KEY (id);'),
 
@@ -27,7 +29,9 @@ exports.up = function (db, callback) {
            '"createdBy" bigint, ' +
            '"updatedBy" bigint, ' +
            '"createdAt" timestamp with time zone NOT NULL, ' +
-           '"updatedAt" timestamp with time zone NOT NULL ' +
+           '"updatedAt" timestamp with time zone NOT NULL, ' +
+           '"authorId" bigint, ' +
+           '"authorHandle" character varying(128) ' +
        ');'),
     db.runSql.bind(db, 'ALTER TABLE ONLY messages ADD CONSTRAINT messages_pkey PRIMARY KEY (id);')
   ], callback);

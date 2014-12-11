@@ -29,8 +29,10 @@ describe('Model Unit Test', function() {
       data = {
         remoteObjectKey: 'challenge',
         remoteObjectId: 12345,
-        createdBy: '1',
-        updatedBy: '1'
+        createdBy: 1,
+        updatedBy: 1,
+        authorHandle: "CREATOR",
+        authorId: 111
       };
       done();
     });
@@ -44,6 +46,8 @@ describe('Model Unit Test', function() {
           created.updatedAt.should.not.have.length(0);
           created.remoteObjectKey.should.equal(data.remoteObjectKey);
           created.remoteObjectId.should.equal(data.remoteObjectId);
+          created.authorHandle.should.equal(data.authorHandle);
+          created.authorId.should.equal(data.authorId);
           done();
         })
         .error(function(err) {

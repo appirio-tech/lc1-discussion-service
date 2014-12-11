@@ -30,8 +30,10 @@ describe('Model Unit Test', function() {
         content: 'message content',
         discussionId: 12345,
         parentMessageId: 67890,
-        createdBy: '1',
-        updatedBy: '1'
+        createdBy: 1,
+        updatedBy: 1,
+        authorHandle: "CREATOR",
+        authorId: 111
       };
       done();
     });
@@ -45,6 +47,9 @@ describe('Model Unit Test', function() {
           created.updatedAt.should.not.have.length(0);
           created.discussionId.should.equal(data.discussionId);
           created.content.should.equal(data.content);
+          created.authorHandle.should.equal(data.authorHandle);
+          created.authorId.should.equal(data.authorId);
+
           done();
         })
         .error(function(err) {

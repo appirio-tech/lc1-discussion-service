@@ -502,6 +502,14 @@ definitions:
         type: integer
         format: int64
         description: The id of the user last updated the row
+      authorId:
+        type: integer
+        format: int64
+        description: The Id of the author.
+      authorHandle:
+        type: string
+        description: The handle of the author.
+        maxLength: 128
       messages:
         type: array
         description: The first level child messages.
@@ -545,6 +553,14 @@ definitions:
         type: integer
         format: int64
         description: The id of the user last updated the row
+      authorId:
+        type: integer
+        format: int64
+        description: The Id of the author.
+      authorHandle:
+        type: string
+        description: The handle of the author.
+        maxLength: 128
       messages:
         type: array
         description: The first level child messages
