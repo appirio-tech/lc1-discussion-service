@@ -44,6 +44,38 @@ function reply(req, res, next) {
 }
 
 /**
+ * Get the first level messages in a discussion
+ */
+function getMesssagesInDiscussion(req, res, next) {
+
+  async.waterfall([
+    function(callback) {
+      var filters = {
+        where: {
+          discussionId: req.swagger.params.discussionId.value,
+          parentMessageId: null
+        }
+      };
+      controllerHelper.findEntities(Message, filters, req, callback);
+    }
+  ], function(err, count, messages) {
+    if (!err) {
+      req.data = {
+        success: true,
+        status: 200,
+        metadata: {
+          totalCount: count
+        },
+        content: messages
+      };
+    }
+    partialResponseHelper.reduceFieldsAndExpandObject(Message, req, next);
+  });
+
+}
+
+
+/**
  * Get the child messages in a message.
  * @param req the request
  * @param res the response
@@ -80,7 +112,7 @@ function getMessages(req, res, next) {
 
 module.exports = {
   create: messageController.create,
-  getAllbyDiscussion: messageController.all,
+  getAllbyDiscussion: getMesssagesInDiscussion,
   findById: messageController.get,
   update: messageController.update,
   delete: messageController.delete,
