@@ -22,7 +22,7 @@ Message.afterCreate(function(message, fn) {
         /*
          {messageId, challengeId, authorId}
          */
-        job.create('60_new_discussion_message', options);
+        job.create('60_new_discussion_message', options).save();
       }
 
       fn(null, message);
