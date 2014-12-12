@@ -39,6 +39,7 @@ app.use(swaggerUi(swaggerDoc));
 
 // @TODO add try/catch logic
 datasource.init(config);
+require('./events/message');
 
 var port;
 if (config.has('app.port')) {

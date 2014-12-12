@@ -7,9 +7,6 @@ var Message = datasource.Message;
 var controllerHelper = require('./../../lib/controllerHelper');
 var async = require('async');
 var partialResponseHelper = require('./../../lib/partialResponseHelper');
-var kue = require('kue');
-var job = kue.createQueue(require('../../config/kue'));
-var config = require('config');
 
 
 // build controller for message resource
@@ -112,41 +109,8 @@ function getMessages(req, res, next) {
 
 }
 
-/**
- * Create a message
- */
-function createMessage(req, res, next) {
-  var messageId;
-  async.waterfall([
-    function(cb) {
-      controllerHelper.createEntity(Message, [Discussion], {}, req, cb);
-    },
-    function(err, message, cb) {
-      messageId = message.id;
-      var filters = {
-        where: {
-          discussionId: message.discussionId
-        }
-      };
-      controllerHelper.getEntity(Discussion, null, filters, req, cb);
-    }
-  ], function(err, discussion) {
-
-    /*
-     {messageId, challengeId, authorId}
-     */
-    job.create(config.get('app.kue.eventQueue'), {
-      messageId: messageId,
-      challengeId: discussion.remoteObjectId
-    });
-
-    next();
-  });
-}
-
-
 module.exports = {
-  create: createMessage,
+  create: messageController.create,
   getAllbyDiscussion: getMessagesInDiscussion,
   findById: messageController.get,
   update: messageController.update,
