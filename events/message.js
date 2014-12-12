@@ -16,7 +16,8 @@ Message.afterCreate(function(message, fn) {
         var options = {
           messageId: message.id,
           challengeId: discussion.remoteObjectId,
-          authorId: tcUser.getSigninUser().id
+          authorId: tcUser.getSigninUser().id,
+          content: message.content
         };
 
         /*
