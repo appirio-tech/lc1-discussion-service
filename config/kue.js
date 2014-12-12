@@ -59,6 +59,10 @@ module.exports = {
       else if (process.env.REDISGREEN_URL)
         return prepareClient(process.env.REDISGREEN_URL);
 
+      // otherwise
+      else if (config.has('app.redis.url'))
+        return prepareClient(config.get('app.redis.url'));
+
       // For local environment.
       else
         return redis.createClient(config.get('app.redis.port'), config.get('app.redis.host'), default_redis_options);

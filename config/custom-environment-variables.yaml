@@ -8,6 +8,7 @@ app:
     eventQueue: DISCUSSION_EVENT_QUEUE
     prefix: KUE_PREFIX
   redis:
+    url: REDIS_URL
     host: REDIS_HOST
     port: REDIS_PORT
 auth0:

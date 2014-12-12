@@ -2,6 +2,7 @@ box: wercker/nodejs
 # Build definition
 services:
   - wercker/postgresql
+  - wercker/redis
 build:
   # The steps that will be executed on build
   steps:

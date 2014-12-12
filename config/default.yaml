@@ -14,6 +14,7 @@ app:
     prefix: q
     eventQueue: 60_new_discussion_message
   redis:
+    url: ''
     port: 6379
     host: 127.0.0.1
 auth0:
