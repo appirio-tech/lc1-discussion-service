@@ -4,6 +4,12 @@ app:
   port: PORT
   tcApi: TC_API_URL
   tcUser: LC_USER_SERVICE
+  kue:
+    eventQueue: DISCUSSION_EVENT_QUEUE
+    prefix: KUE_PREFIX
+  redis:
+    host: REDIS_HOST
+    port: REDIS_PORT
 auth0:
   client: TC_AUTH0_CLIENT
   secret: TC_AUTH0_SECRET

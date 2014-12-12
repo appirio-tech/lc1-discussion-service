@@ -7,6 +7,9 @@ var Message = datasource.Message;
 var controllerHelper = require('./../../lib/controllerHelper');
 var async = require('async');
 var partialResponseHelper = require('./../../lib/partialResponseHelper');
+var kue = require('kue');
+var job = kue.createQueue(require('../../config/kue'));
+var config = require('config');
 
 
 // build controller for message resource
@@ -29,7 +32,7 @@ function reply(req, res, next) {
       req.swagger.params.body.value.parentMessageId = parentMessage.id;
       controllerHelper.createEntity(Message, [Discussion], {}, req, function(err, message) {
         if (!err) {
-          req.data = { 
+          req.data = {
             id: message.id,
             result: {
               success: true,
@@ -46,7 +49,7 @@ function reply(req, res, next) {
 /**
  * Get the first level messages in a discussion
  */
-function getMesssagesInDiscussion(req, res, next) {
+function getMessagesInDiscussion(req, res, next) {
 
   async.waterfall([
     function(callback) {
@@ -109,10 +112,42 @@ function getMessages(req, res, next) {
 
 }
 
+/**
+ * Create a message
+ */
+function createMessage(req, res, next) {
+  var messageId;
+  async.waterfall([
+    function(cb) {
+      controllerHelper.createEntity(Message, [Discussion], {}, req, cb);
+    },
+    function(err, message, cb) {
+      messageId = message.id;
+      var filters = {
+        where: {
+          discussionId: message.discussionId
+        }
+      };
+      controllerHelper.getEntity(Discussion, null, filters, req, cb);
+    }
+  ], function(err, discussion) {
+
+    /*
+     {messageId, challengeId, authorId}
+     */
+    job.create(config.get('app.kue.eventQueue'), {
+      messageId: messageId,
+      challengeId: discussion.remoteObjectId
+    });
+
+    next();
+  });
+}
+
 
 module.exports = {
-  create: messageController.create,
-  getAllbyDiscussion: getMesssagesInDiscussion,
+  create: createMessage,
+  getAllbyDiscussion: getMessagesInDiscussion,
   findById: messageController.get,
   update: messageController.update,
   delete: messageController.delete,
