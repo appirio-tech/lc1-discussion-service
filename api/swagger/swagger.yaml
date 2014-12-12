@@ -131,6 +131,11 @@ paths:
           required: true
           schema:
             $ref: MessageBody
+        - name: useCurrentUserAsAuthor
+          in: query
+          description: Uses the current authenticated user as the author
+          required: false
+          type: boolean
       responses:
         "200":
           description: Success
@@ -264,6 +269,11 @@ paths:
           required: true
           schema:
             $ref: MessageBody
+        - name: useCurrentUserAsAuthor
+          in: query
+          description: Uses the current authenticated user as the author
+          required: false
+          type: boolean
       responses:
         "200":
           description: Success
@@ -507,10 +517,6 @@ definitions:
         type: integer
         format: int64
         description: The id of the user last updated the row
-      authorId:
-        type: integer
-        format: int64
-        description: The Id of the author.
       messages:
         type: array
         description: The first level child messages.
@@ -590,6 +596,10 @@ definitions:
       content:
         description:  The content of the message
         type: string
+      authorId:
+        description: The id of the author
+        type: integer
+        format: int64
   ActionResponse:
     required:
       - id

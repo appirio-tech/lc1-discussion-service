@@ -34,12 +34,6 @@ module.exports = function(sequelize, DataTypes) {
       get: function() {
         return parseInt(this.getDataValue('updatedBy'));
       }
-    },
-    authorId: {
-      type: DataTypes.BIGINT,
-      get: function() {
-        return parseInt(this.getDataValue('authorId'));
-      }
     }
   }, {
     tableName: 'discussions',

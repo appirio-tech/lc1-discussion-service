@@ -17,7 +17,6 @@ var yaml = require('js-yaml');
 var fs = require('fs');
 var cors = require('cors');
 var partialResponseHelper = require('./lib/partialResponseHelper');
-var request = require('request');
 var auth = require('./lib/tc-auth');
 
 var app = express();
