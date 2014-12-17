@@ -15,4 +15,4 @@ auth0:
   client: TC_AUTH0_CLIENT
   secret: TC_AUTH0_SECRET
 auth:
-  enabled: TC_AUTH_ENABLED
+  enabled: AUTH_ENABLED

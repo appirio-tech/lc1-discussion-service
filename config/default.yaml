@@ -22,8 +22,6 @@ auth0:
   secret: ''
 auth:
   enabled: false
-  perms:
-    - challengeApp
   paths:
     - httpVerb: DELETE
       path: '*'
