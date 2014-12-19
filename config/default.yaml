@@ -30,4 +30,4 @@ auth:
     - httpVerb: POST
       path: '*'
     - httpVerb: GET
-      path: '/discussion/*'
+      path: '/discussions/*'
