@@ -19,6 +19,7 @@ var _validate = function (route, obj, expectedResponseDefinition, definitions, c
 
   var processRef = function (value, fieldPath, propertyDefinition, isArray) {
     var definitionName = isArray ? propertyDefinition.items.$ref : propertyDefinition.$ref;
+    definitionName = definitionName.substring(14, definitionName.length);
     var definition = definitions[definitionName];
     assert.ok(definition, route + ': Unexpected reference name in Swagger file: ' + definitionName);
     if (isArray) {
@@ -129,7 +130,8 @@ exports.validateGetRequests = function (url, swaggerFilePath, paramReplacementMa
             }
             var expectedResponseDefinitionObject;
             if ('$ref' in expectedResponseObject.schema) {
-              expectedResponseDefinitionObject = definitions[expectedResponseObject.schema.$ref];
+              var ref = expectedResponseObject.schema.$ref;
+              expectedResponseDefinitionObject = definitions[ref.substring(14, ref.length)];
             }
             console.info('Testing Swagger definition \'' + method.description + '\' for request path: ' + finalPath);
             _validate(finalPath, res.body, expectedResponseDefinitionObject, definitions);

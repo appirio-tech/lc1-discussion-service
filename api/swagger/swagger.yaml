@@ -1,4 +1,4 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
   version: "0.1.0"
   title: Serenity Discussion API
@@ -30,16 +30,16 @@ paths:
           in: body
           required: true
           schema:
-            $ref: DiscussionBody
+            $ref: '#/definitions/DiscussionBody'
       responses:
         "200":
           description: Success
           schema:
-            $ref: ActionResponse
+            $ref: '#/definitions/ActionResponse'
         default:
           description: Error
           schema:
-            $ref: ErrorResponse
+            $ref: '#/definitions/ErrorResponse'
     get:
       x-swagger-router-controller: discussions
       description: Get Discussions
@@ -73,11 +73,11 @@ paths:
         "200":
           description: Return a Discussion Resource
           schema:
-            $ref: DiscussionsResponse
+            $ref: '#/definitions/DiscussionsResponse'
         default:
           description: Error
           schema:
-            $ref: ErrorResponse
+            $ref: '#/definitions/ErrorResponse'
   /discussions/{discussionId}:
     get:
       x-swagger-router-controller: discussions
@@ -100,11 +100,11 @@ paths:
         "200":
           description: Return a Discussion Resource
           schema:
-            $ref: DiscussionResponse
+            $ref: '#/definitions/DiscussionResponse'
         default:
           description: Error
           schema:
-            $ref: ErrorResponse
+            $ref: '#/definitions/ErrorResponse'
           examples:
             application/json: |-
               {
@@ -130,7 +130,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: MessageBody
+            $ref: '#/definitions/MessageBody'
         - name: useCurrentUserAsAuthor
           in: query
           description: Uses the current authenticated user as the author
@@ -140,11 +140,11 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: ActionResponse
+            $ref: '#/definitions/ActionResponse'
         default:
           description: Error
           schema:
-            $ref: ErrorResponse
+            $ref: '#/definitions/ErrorResponse'
           examples:
             application/json: |-
               {
@@ -173,7 +173,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: MessagesResponse
+            $ref: '#/definitions/MessagesResponse'
           examples:
             application/json: |-
               {
@@ -203,7 +203,7 @@ paths:
         default:
           description: Error
           schema:
-            $ref: ErrorResponse
+            $ref: '#/definitions/ErrorResponse'
   /discussions/{discussionId}/messages/{messageId}:
     get:
       x-swagger-router-controller: messages
@@ -233,11 +233,11 @@ paths:
         "200":
           description: A successufly response
           schema:
-            $ref: MessageResponse
+            $ref: '#/definitions/MessageResponse'
         default:
           description: Error
           schema:
-            $ref: ErrorResponse
+            $ref: '#/definitions/ErrorResponse'
           examples:
             application/json: |-
               {
@@ -268,7 +268,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: MessageBody
+            $ref: '#/definitions/MessageBody'
         - name: useCurrentUserAsAuthor
           in: query
           description: Uses the current authenticated user as the author
@@ -278,7 +278,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: ActionResponse
+            $ref: '#/definitions/ActionResponse'
           examples:
             application/json: |-
               {
@@ -291,7 +291,7 @@ paths:
         default:
           description: Error
           schema:
-            $ref: ErrorResponse
+            $ref: '#/definitions/ErrorResponse'
           examples:
             application/json: |-
               {
@@ -322,11 +322,11 @@ paths:
         "200":
           description: Successful reply
           schema:
-            $ref: ActionResponse
+            $ref: '#/definitions/ActionResponse'
         default:
           description: Error
           schema:
-            $ref: ErrorResponse
+            $ref: '#/definitions/ErrorResponse'
           examples:
             application/json: |-
               {
@@ -359,7 +359,7 @@ paths:
           in: body
           required: true
           schema:
-            $ref: MessageBody
+            $ref: '#/definitions/MessageBody'
         - name: useCurrentUserAsAuthor
           in: query
           description: Uses the current authenticated user as the author
@@ -369,11 +369,11 @@ paths:
         "200":
           description: Successful reply
           schema:
-            $ref: ActionResponse
+            $ref: '#/definitions/ActionResponse'
         default:
           description: Error
           schema:
-            $ref: ErrorResponse
+            $ref: '#/definitions/ErrorResponse'
     get:
       x-swagger-router-controller: messages
       description: Get the child messages for a message
@@ -402,11 +402,11 @@ paths:
         "200":
           description: Successful reply
           schema:
-            $ref: MessagesResponse
+            $ref: '#/definitions/MessagesResponse'
         default:
           description: Error
           schema:
-            $ref: ErrorResponse
+            $ref: '#/definitions/ErrorResponse'
 # complex objects have schema definitions
 definitions:
   MessagesResponse:
@@ -423,11 +423,11 @@ definitions:
         format: int32
         description: The http status code
       metadata:
-        $ref: MetadataListResponse
+        $ref: '#/definitions/MetadataListResponse'
       content:
         type: array
         items:
-          $ref: MessageResource
+          $ref: '#/definitions/MessageResource'
           minItems: 0
           uniqueItems: true
   MessageResponse:
@@ -444,9 +444,9 @@ definitions:
         format: int32
         description: The http status code
       metadata:
-        $ref: MetadataListResponse
+        $ref: '#/definitions/MetadataListResponse'
       content:
-        $ref: MessageResource
+        $ref: '#/definitions/MessageResource'
   DiscussionResponse:
     required:
       - status
@@ -461,9 +461,9 @@ definitions:
         format: int32
         description: The http status code
       metadata:
-        $ref: MetadataListResponse
+        $ref: '#/definitions/MetadataListResponse'
       content:
-        $ref: DiscussionResource
+        $ref: '#/definitions/DiscussionResource'
   DiscussionsResponse:
     required:
       - status
@@ -478,11 +478,11 @@ definitions:
         format: int32
         description: The http status code
       metadata:
-        $ref: MetadataListResponse
+        $ref: '#/definitions/MetadataListResponse'
       content:
         type: array
         items:
-          $ref: DiscussionResource
+          $ref: '#/definitions/DiscussionResource'
           minItems: 0
           uniqueItems: true
   DiscussionResource:
@@ -521,7 +521,7 @@ definitions:
         type: array
         description: The first level child messages.
         items:
-          $ref: MessageResource
+          $ref: '#/definitions/MessageResource'
           minItems: 0
           uniqueItems: true
   MessageResource:
@@ -568,14 +568,14 @@ definitions:
         type: array
         description: The first level child messages
         items:
-          $ref: MessageResource
+          $ref: '#/definitions/MessageResource'
           minItems: 0
           uniqueItems: true
       discussion:
-        $ref: DiscussionResource
+        $ref: '#/definitions/DiscussionResource'
         description: The discussion object which the message belongs to
       parentMessage:
-        $ref: MessageResource
+        $ref: '#/definitions/MessageResource'
         description: The parent message which the message belongs to
   DiscussionBody:
     required:
