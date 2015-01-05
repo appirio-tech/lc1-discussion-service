@@ -21,43 +21,45 @@ var auth = require('./lib/tc-auth');
 
 var app = express();
 
+a127.init(function (swaggerConfig) {
 // Add cors support
-app.use(cors());
-app.options('*', cors());
+  app.use(cors());
+  app.options('*', cors());
 
 // uncomment the following if you need to parse incoming form data
-app.use(bodyParser.json());
+  app.use(bodyParser.json());
 
 // central point for all authentication
-auth.auth(app);
+  auth.auth(app);
 
-var swaggerUi = swaggerTools.middleware.v2.swaggerUi;
+  var swaggerUi = swaggerTools.middleware.v2.swaggerUi;
 
 // Serve the Swagger documents and Swagger UI
-var swaggerDoc = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
-app.use(swaggerUi(swaggerDoc));
+  var swaggerDoc = yaml.safeLoad(fs.readFileSync('./api/swagger/swagger.yaml', 'utf8'));
+  app.use(swaggerUi(swaggerDoc));
 
 // @TODO add try/catch logic
-datasource.init(config);
-require('./events/message');
+  datasource.init(config);
+  require('./events/message');
 
-var port;
-if (config.has('app.port')) {
-  port = config.get('app.port');
-} else {
-  port = 10010;
-}
+  var port;
+  if (config.has('app.port')) {
+    port = config.get('app.port');
+  } else {
+    port = 10010;
+  }
 
-app.use(partialResponseHelper.parseFields);
+  app.use(partialResponseHelper.parseFields);
 
 // a127 middlewares
-app.use(a127.middleware());
+  app.use(a127.middleware(swaggerConfig));
 // generic error handler
-app.use(routeHelper.errorHandler);
+  app.use(routeHelper.errorHandler);
 // render response data as JSON
-app.use(routeHelper.renderJson);
+  app.use(routeHelper.renderJson);
 
-app.listen(port);
-console.log('app started at '+port);
+  app.listen(port);
+  console.log('app started at '+port);
+});
 
 module.exports = app;
