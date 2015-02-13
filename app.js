@@ -11,13 +11,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var config = require('config');
 var datasource = require('./datasource');
-var routeHelper = require('./lib/routeHelper');
+var routeHelper = require('serenity-route-helper');
 var swaggerTools = require('swagger-tools');
 var yaml = require('js-yaml');
 var fs = require('fs');
 var cors = require('cors');
 var partialResponseHelper = require('./lib/partialResponseHelper');
-var auth = require('./lib/tc-auth');
+var auth = require('serenity-auth');
 
 var app = express();
 
@@ -30,7 +30,7 @@ a127.init(function (swaggerConfig) {
   app.use(bodyParser.json());
 
 // central point for all authentication
-  auth.auth(app);
+  auth.auth(app, config, routeHelper.errorHandler);
 
   var swaggerUi = swaggerTools.middleware.v2.swaggerUi;
 
@@ -54,9 +54,9 @@ a127.init(function (swaggerConfig) {
 // a127 middlewares
   app.use(a127.middleware(swaggerConfig));
 // generic error handler
-  app.use(routeHelper.errorHandler);
+  app.use(routeHelper.middleware.errorHandler);
 // render response data as JSON
-  app.use(routeHelper.renderJson);
+  app.use(routeHelper.middleware.renderJson);
 
   app.listen(port);
   console.log('app started at '+port);

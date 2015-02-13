@@ -1,6 +1,7 @@
-app:
+datasource:
   pgURL: DATABASE_URL
   pgURLWercker: WERCKER_POSTGRESQL_URL
+app:
   port: PORT
   tcApi: TC_API_URL
   tcUser: LC_USER_SERVICE
