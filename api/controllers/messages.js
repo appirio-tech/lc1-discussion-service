@@ -20,25 +20,15 @@ var messageController = controllerHelper.buildController(Message, [Discussion], 
  * @param next the next middleware in the route
  */
 function reply(req, res, next) {
-  controllerHelper.getEntity(Message, [Discussion], {}, req, function(err, parentMessage) {
+  controllerHelper.getEntity(Message, [Discussion], {}, req, res, function(err) {
     if (err) {
       next();
     } else {
       // the data for creating entity should be in req.swagger.params.body.value
       // set parentMessageId
-      req.swagger.params.body.value.parentMessageId = parentMessage.id;
-      controllerHelper.createEntity(Message, [Discussion], {}, req, function(err, message) {
-        if (!err) {
-          req.data = {
-            id: message.id,
-            result: {
-              success: true,
-              status: 200
-            }
-          };
-        }
-        next();
-      });
+      req.swagger.params.body.value.parentMessageId = req.data.content.dataValues.id;
+      console.log(req.swagger.params.body.value);
+      messageController.create(req, res, next);
     }
   });
 }
