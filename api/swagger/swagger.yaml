@@ -3,7 +3,7 @@ info:
   version: "0.1.0"
   title: Serenity Discussion API
 # during dev, should point to your local machine
-host: localhost:10010
+host: lc1-discussion-service.herokuapp.com
 #
 schemes:
   # tip: remove http to make production-grade
