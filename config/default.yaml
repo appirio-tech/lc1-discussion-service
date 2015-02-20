@@ -1,5 +1,7 @@
-app:
+datasource:
   pgURL: 'postgres://postgres@localhost:5432/travis_ci_test'
+  modelsDirectory: "api/models"
+app:
   port: 10010
   loadDoc: true
   tcApi: http://api.topcoder.com/v2

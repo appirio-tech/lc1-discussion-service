@@ -6,7 +6,7 @@ var Discussion = datasource.Discussion;
 var kue = require('kue');
 var job = kue.createQueue(require('../config/kue'));
 var config = require('config');
-var tcUser = require('../lib/tc-auth/tcUser');
+var tcUser = require('serenity-auth').tcUser;
 
 Message.afterCreate(function(message, fn) {
   Discussion.find(message.discussionId)

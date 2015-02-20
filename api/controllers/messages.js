@@ -4,9 +4,9 @@
 var datasource = require('./../../datasource').getDataSource();
 var Discussion = datasource.Discussion;
 var Message = datasource.Message;
-var controllerHelper = require('./../../lib/controllerHelper');
+var controllerHelper = require('../../lib/controllerHelper');
 var async = require('async');
-var partialResponseHelper = require('./../../lib/partialResponseHelper');
+var partialResponseHelper = require('../../lib/partialResponseHelper');
 
 
 // build controller for message resource
@@ -20,25 +20,14 @@ var messageController = controllerHelper.buildController(Message, [Discussion], 
  * @param next the next middleware in the route
  */
 function reply(req, res, next) {
-  controllerHelper.getEntity(Message, [Discussion], {}, req, function(err, parentMessage) {
+  controllerHelper.getEntity(Message, [Discussion], {}, req, res, function(err) {
     if (err) {
       next();
     } else {
       // the data for creating entity should be in req.swagger.params.body.value
       // set parentMessageId
-      req.swagger.params.body.value.parentMessageId = parentMessage.id;
-      controllerHelper.createEntity(Message, [Discussion], {}, req, function(err, message) {
-        if (!err) {
-          req.data = {
-            id: message.id,
-            result: {
-              success: true,
-              status: 200
-            }
-          };
-        }
-        next();
-      });
+      req.swagger.params.body.value.parentMessageId = req.data.content.dataValues.id;
+      messageController.create(req, res, next);
     }
   });
 }

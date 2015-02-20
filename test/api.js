@@ -5,9 +5,8 @@ var config = require('config');
 var supertest = require("supertest");
 var async = require("async");
 
-var datasource = require('./../datasource');
-datasource.init(config);
-var db = datasource.getDataSource();
+var serenityDatasource = require('serenity-datasource');
+var db = new serenityDatasource(config);
 var sequelize = db.sequelize;
 // turn of sequelize logging.
 sequelize.options.logging = false;
