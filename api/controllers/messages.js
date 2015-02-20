@@ -27,7 +27,6 @@ function reply(req, res, next) {
       // the data for creating entity should be in req.swagger.params.body.value
       // set parentMessageId
       req.swagger.params.body.value.parentMessageId = req.data.content.dataValues.id;
-      console.log(req.swagger.params.body.value);
       messageController.create(req, res, next);
     }
   });
