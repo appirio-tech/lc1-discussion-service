@@ -40,7 +40,7 @@
     "pg": "^3.4.1",
     "redis": "^0.12.1",
     "request": "^2.47.0",
-    "request-json": "~0.5.0",
+    "request-json": "~0.6.5",
     "sequelize": "^1.7.10",
     "swagger-tools": "~0.6.13",
     "time-grunt": "^0.3.1"
